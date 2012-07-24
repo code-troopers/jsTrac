@@ -1,0 +1,131 @@
+/*
+	Document: jstrac.css
+	Created: 24th of July, 2012
+	Author: Romain Laï-King
+	Description: CSS for the trac modal popup
+*/
+
+#tracModalPopup{
+width:800px;
+margin: -250px 0 0 -400px;
+z-index:50001;
+}
+
+#tracModalHeader{
+	height:50px;
+}
+
+#tracTabBar{
+	float:left;
+}
+
+#tracTabBar .active{
+	border-bottom:0px;
+}
+#tracTabBar li{
+	margin-bottom:-5px;
+}
+
+#tracForm {
+	color: #333;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	width: 80px;
+	margin-left:20px;
+	margin-top:20px;
+	display:block;
+	width:480px;
+	height:'360px';
+	float:left;
+}
+
+#tracNewPane input,
+#tracNewPane textarea,
+#tracUpdatePane textarea{
+  width: 450px;
+}
+
+#tracForm h2{
+	font-weight:bold;
+}
+#tracForm label{
+	display:inline-block;
+	margin-top:5px;
+}
+.tracSelect{
+float:left;
+margin-top:5px;
+}
+
+.tracSelect label {
+display:block;
+width:80px;
+text-align:right;
+margin-right:5px;
+float:left;
+}
+.tracSelect select{
+float:left;
+width:150px;
+padding:0px;
+}
+.tracSelect input{
+width:100px;
+}
+
+#tracTicketInfo {
+clear:both;
+}
+
+.tracBar{
+float:right;
+margin-top:10px;
+margin-right:30px;
+}
+.tracBar button{
+margin-left:20px;
+margin-bottom:20px;
+}
+
+#tracLeftPane{
+float:left;
+}
+#screenshotPreview {
+	margin-top:20px;
+	margin-left:20px;
+	margin-bottom:20px;
+	display:block;
+	max-height:360px;
+	max-width:260px;
+}
+
+.tracAction label{
+    margin-left:5px;
+}
+
+.tracHint {
+    display:inline-block;
+    font-size:11px;
+    font-style:italic;
+    margin-left:5px;
+}
+
+
+#updateTicketIdSelect label {
+	width:150px;
+}
+
+#updateTicketIdSelect select{
+	width:80px;
+}
+
+
+#reportTracBug{
+	cursor:pointer;
+}
+
+#prefillTrac{
+	width:250px;
+	margin-top:20px;
+	margin-left:10px;
+}

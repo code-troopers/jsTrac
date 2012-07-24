@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>example</title>
+		
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="css/jsfeedback.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="css/jstrac.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<!-- Common Library -->
+		<script src="common/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="common/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- Library for jsfeeback -->
+		<script src="jsfeedbacklib/canvg.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsfeedbacklib/html2canvas.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsfeedbacklib/jquery-ui-1.8.21.custom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsfeedbacklib/mousetrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsfeedbacklib/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsfeedbacklib/rgbcolor.js" type="text/javascript" charset="utf-8"></script>
+		<!-- Library for jstrac -->
+		<script src="jstraclib/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jstraclib/mimic.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="bin/jstrac.js" type="text/javascript" charset="utf-8"></script>
+		<script src="bin/jsfeedback.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		<script type="text/javascript" charset="utf-8">
+
+		$(document).ready(function() {
+			//Options for jstrac
+		    var opts={
+		        'prefill': " URL: " + window.location,
+		        'callback': function(){
+		               $('#reportTracBug').show();
+		               }
+		    }
+
+			$('#reportbug').feedback(function(img){
+				initTracForm(img,opts);
+			});
+		});
+			
+		</script>		
+	</head>
+	<body>
+		
+<h1>Important: How to use this example</h1>
+	
+<p>In order to test jsTrac, you will need to provide the URL to a Trac server which has a recent version of the XML-RPC plugin.
+	
+If your server Trac isn't on the same domain as the one you are using this example, then you will need to setup Cross-Origin Ressource Sharing ( CORS ). As such, it's recommended to run this page on an HTTP server and set the necessary header for CORS on your Trac server. Configuration for Apache server are available in the documentation.
+
+Alternatively, if you are using Chrome, you can use the following arguments at startup to remove the securities: --args --disable-web-security
+	
+Otherwise, you will be limited to jsfeedback
+
+If you are using IE, you will be able to take a screenshot on IE9, but jsTrac won't work. See the documentation for compatibility details.</p>
+		
+<label for="url_to_trac">URL to Trac</label><input type="text" name="url_to_trac" value="" id="url_to_trac">
+<button	type="button" id="reportbug">Report bug</button>
+
+<h1>Some Lorem Ipsum</h1>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed nisi ut ipsum pulvinar rutrum a a diam. Donec volutpat sagittis neque, sollicitudin hendrerit lacus mollis in. Nam molestie laoreet risus vel facilisis. Maecenas placerat tincidunt nulla. Etiam euismod congue ornare. Sed sagittis eleifend lacus. Suspendisse sed augue diam. Morbi vehicula, justo non vulputate feugiat, sapien quam faucibus enim, quis posuere massa massa ut sem. Quisque tempus pretium volutpat. Quisque eget lorem at dui pharetra tempus non sit amet eros. Integer erat enim, ullamcorper vel egestas sit amet, rhoncus eu diam. Duis fermentum, enim non laoreet mollis, tellus dolor laoreet dui, vel aliquam erat justo quis justo. Etiam eget dignissim eros. Nam mattis urna et ligula vulputate placerat. Nam in consequat nisl.</p>
+
+		<p>Phasellus sagittis dolor sed dolor eleifend varius. Duis vulputate, quam vitae molestie tempus, ligula orci venenatis leo, vestibulum pretium sem enim ut diam. Nullam consequat mauris iaculis massa consectetur malesuada tristique et erat. Aliquam ut massa id enim tempor fermentum. Proin adipiscing venenatis mattis. Nunc sodales nunc sed sem sodales vitae sodales eros consectetur. Vestibulum luctus faucibus nisl eu egestas.</p>
+
+		<p>Phasellus facilisis placerat nunc, at ultrices dui volutpat dapibus. Cras a lectus purus. Nunc viverra justo id turpis rhoncus ut interdum elit lacinia. Nulla et velit urna, et porttitor tellus. Nunc venenatis imperdiet viverra. Cras ultrices tellus in eros commodo porttitor. Sed mollis, nunc sed egestas suscipit, arcu tellus ultrices dui, eu hendrerit eros elit id sapien.</p>
+
+		<p>Ut molestie euismod magna, luctus malesuada tellus tincidunt sit amet. Praesent mattis, dolor non volutpat rhoncus, turpis dolor dictum metus, id placerat ante nibh et elit. Sed vestibulum orci suscipit purus condimentum venenatis sed sit amet libero. Proin lobortis molestie augue, non consequat orci mollis ac. Vivamus in lorem enim. In eget risus ut eros ornare interdum non eget arcu. Nam massa urna, mattis id accumsan et, accumsan sed arcu. Donec in quam ante, quis suscipit erat.</p>
+
+		<p>Nullam turpis felis, dignissim nec gravida eu, mattis ac dui. Pellentesque et nunc in justo convallis semper vel non quam. Proin vitae eros at est blandit iaculis vitae ac urna. Nullam aliquet rutrum tortor in cursus. Etiam lobortis felis non tortor pharetra sed vulputate risus facilisis. Cras fermentum cursus magna, non consequat libero pellentesque et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam sed ligula tempor elit tempus vehicula. Quisque ornare massa nec leo congue in hendrerit nulla mattis. Sed feugiat augue cursus enim cursus quis laoreet urna tincidunt.</p>		
+	</body>
+</html>
