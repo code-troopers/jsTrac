@@ -22,7 +22,7 @@
 		<script src="jstraclib/mimic.js" type="text/javascript" charset="utf-8"></script>
 
 		<script src="src/jstrac.js" type="text/javascript" charset="utf-8"></script>
-		<script src="src/jsfeedback.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/jsannotate.js" type="text/javascript" charset="utf-8"></script>
 		
 		
 		<script type="text/javascript" charset="utf-8">
@@ -45,7 +45,7 @@
 			$('#reportbug').click(function(){
 				opts.tracUrl= $('#url_to_trac').val();
 			})
-			.feedback(function(img){
+			.annotate(function(img){
 				jsTrac.initTracForm(img,opts);
 			});
 		});

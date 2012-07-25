@@ -22,6 +22,15 @@ z-index:50001;
 #tracTabBar .active{
 	border-bottom:0px;
 }
+
+#tracTabBar a{
+	text-decoration:none;
+}
+
+#tracTabBar a:link{
+	color:black;
+}
+
 #tracTabBar li{
 	//margin-bottom:-5px;
 }
