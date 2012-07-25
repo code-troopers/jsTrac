@@ -31,12 +31,14 @@
 			//Options for jstrac
 		    var opts={
 		        'prefill': " URL: " + window.location,
-		        'callback': function(){
-		               $('#reportTracBug').show();
-		               }
+		        'defaultComponent': 'wiki',
+				'lockDefault': 'hidden'
 		    }
 
-			$('#reportbug').feedback(function(img){
+			$('#reportbug').click(function(){
+				opts.tracUrl= $('#url_to_trac').val();
+			})
+			.feedback(function(img){
 				initTracForm(img,opts);
 			});
 		});
@@ -56,9 +58,10 @@ Alternatively, if you are using Chrome, you can use the following arguments at s
 Otherwise, you will be limited to jsfeedback<br/><br/>
 
 If you are using IE, you will be able to take a screenshot on IE9, but jsTrac won't work. See the documentation for compatibility details.</p>
-		
-<label for="url_to_trac">URL to Trac</label><input type="text" name="url_to_trac" value="" id="url_to_trac">
+
+<label for="url_to_trac">URL to Trac( no slash '/' at the end)</label><input type="text" name="url_to_trac" value="https://trac.srmvision.com" id="url_to_trac">
 <button	type="button" id="reportbug">Report bug</button>
+
 
 <h1>Some Lorem Ipsum</h1>
 
