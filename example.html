@@ -21,8 +21,8 @@
 		<script src="jstraclib/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="jstraclib/mimic.js" type="text/javascript" charset="utf-8"></script>
 
-		<script src="bin/jstrac.js" type="text/javascript" charset="utf-8"></script>
-		<script src="bin/jsfeedback.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/jstrac.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/jsfeedback.js" type="text/javascript" charset="utf-8"></script>
 		
 		
 		<script type="text/javascript" charset="utf-8">
@@ -32,7 +32,14 @@
 		    var opts={
 		        'prefill': " URL: " + window.location,
 		        'defaultComponent': 'wiki',
-				'lockDefault': 'hidden'
+				'defaultPriority' : 'blocker',
+				'defaultMilestone': 'bugfix48',
+				'defaultType': 'bug',
+				'lockDefault': 'hidden',
+				'allowUpdate':true,
+				'onCancel': function(){console.log('cancel')},
+				'onSubmitted': function(id){console.log('ticket #'+id)},
+				'updateAnyId':true
 		    }
 
 			$('#reportbug').click(function(){
