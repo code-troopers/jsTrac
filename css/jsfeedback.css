@@ -36,9 +36,9 @@
 }
 
 .feedbackMenuBar{
-display:inline-block;
+	display:inline-block;
 	margin-left:10px;
-	margin-top:10px;
+	margin-bottom:5px;
 	width:330px;
 }
 
@@ -59,7 +59,9 @@ margin-right:5px;
 
 #feedbackForm h1{
     font-family: arial,sans-serif;
+	font-size:17px;
     font-weight:bold;
+margin-bottom:5px;
 }
 
 #feedbackOverlay{

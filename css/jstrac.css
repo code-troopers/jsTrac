@@ -89,10 +89,11 @@ margin-bottom:20px;
 
 #tracLeftPane{
 float:left;
+width:260px;
 }
 #screenshotPreview {
 	margin-top:20px;
-	margin-left:20px;
+	margin-left:10px;
 	margin-bottom:20px;
 	display:block;
 	max-height:360px;
@@ -126,6 +127,7 @@ float:left;
 
 #prefillTrac{
 	width:250px;
+	word-wrap: break-word;
 	margin-top:20px;
 	margin-left:10px;
 }
