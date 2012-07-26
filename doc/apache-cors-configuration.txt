@@ -1,0 +1,19 @@
+Cross Origin Ressource Sharing configuration for Apache
+
+
+First of all, make sure that the module "mod_headers" is activated in your Apache configuration. Then, either in your configuration file, or in a .htaccess add the following lines:
+
+
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods "POST"
+Header add Access-Control-Allow-Headers "Content-Type"
+Header add Access-Control-Allow-Credentials "true"
+
+
+First line: Specify which domain can access your resource. If you use authentication to the server, then replace the wildcard by the actual distant domain.
+
+Second line: Allowed method. Mimic use POST.
+
+Third line: Allowed header in preflight. Mimic will put "Content-type"
+
+Fourth line: Allow credentials. Might not be needed if you allow anonymous submitting. 

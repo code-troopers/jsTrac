@@ -1,0 +1,128 @@
+<!-- Snippet from https://google-developers.appspot.com/chart/interactive/docs/quick_start -->
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <title>Example of preprocessing</title>
+   	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="css/jsannotate.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="css/jstrac.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<!-- Common library -->
+	<script src="common/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="common/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- Library for jsAnnotate -->
+	<script src="jsannotatelib/canvg.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jsannotatelib/html2canvas.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jsannotatelib/jquery-ui-1.8.21.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jsannotatelib/mousetrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jsannotatelib/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jsannotatelib/rgbcolor.js" type="text/javascript" charset="utf-8"></script>
+	
+	<!-- Library for jsTrac -->
+	<script src="jstraclib/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jstraclib/mimic.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="src/jstrac.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/jsannotate.js" type="text/javascript" charset="utf-8"></script>
+		
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    
+    		<script type="text/javascript" charset="utf-8">
+
+		$(document).ready(function() {
+			//Options for jstrac
+		    var optsTrac={
+		        'prefill': " URL: " + window.location,
+		        'zIndex':100000,
+		     	'allowUpdate':true,
+				'onCancel': function(){console.log('Cancelled')},
+				'onSubmitted': function(id,link){console.log(' New ticket #'+id+" - link: "+ link)},
+				'onUpdated': function(id,link){console.log(' Updated ticket #'+id+" - link: "+ link)},
+				'updateAnyId':true
+		    }
+			
+			var optsAnnotate={
+		    		'zIndex':100000,
+		    		'onOut':function(){console.log("We got out of the annotation!")},
+					'onPreprocessing': function(){
+						if($('input:radio[name=groupPrepro]:checked').val()=="true"){
+							console.log("With preprocessing");
+							//We retrieve the SVG, then convert it to PNG
+							var svg = $('iframe').contents().find('svg');
+							var svgString = $('<div></div>').append(svg.clone()).html();
+							var width = svg.attr('width');
+							var height = svg.attr('height');
+							var img = svg2png(svgString,width,height);
+							//We put the new image in place of the iframe
+							$('iframe').append("<img  src='"+img+"' />");
+							$('iframe').hide();
+							}
+						else{
+							console.log("Without preprocessing");
+						}
+						},
+					'onRendered': function(img){
+						//We put back the iframe where it belonged and remove the image
+						$('iframe').show();
+						$('iframe').parent().find('img').remove();
+						optsTrac.img=img;
+						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
+						}
+			}
+			$('#reportbug').annotate(optsAnnotate);
+		});
+			
+		</script>
+  </head>
+
+  <body>
+  
+  	<h1>Preprocessing example</h1>
+  	<p>This example will show you a bit of preprocessing so as to fill the missing feature of html2canvas at the moment.</p>
+  	<p>Below is a chart pie using Google Visualization. The chart is drawn using a SVG within an iframe.</p>
+  	
+  	<input type="radio" name="groupPrepro" value="false" checked> Without preprocessing<br/>
+	<input type="radio" name="groupPrepro" value="true"> With preprocessing<br/>
+	 
+  	<label for="url_to_trac">URL to Trac( no slash '/' at the end)</label><input type="text" name="url_to_trac" value="https://trac.srmvision.com" id="url_to_trac">
+<button	type="button" id="reportbug">Report bug</button>
+  	
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>

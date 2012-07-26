@@ -71,4 +71,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 			
 ~~
  
- 
+#Changelog
+
+v1.0
+* Initial release

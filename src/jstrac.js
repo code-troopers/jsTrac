@@ -494,11 +494,15 @@ return{
 		$('<div>').attr('id','tracAppendZone').addClass('tab-content').appendTo('#tracForm');
 		$('<div>').attr('id','tracBarBase').addClass('tracBar').appendTo('#tracForm');
 		$('<button>').addClass('btn').text('Cancel').attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');
-		modal.modal('show');
+		if (option.prefill!=null || option.img!=null){
+			modal.width('800px')
+		}
 		modal.css({
 			'margin-top': Math.round(modal.height()/-2),
 			'margin-right': Math.round(modal.width()/-2),
-		})
+		});
+		modal.modal('show');
+		
 		createTracForm();
 	}
 };
