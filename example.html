@@ -31,7 +31,7 @@
 		$(document).ready(function() {
 			//Options for jstrac
 		    var optsTrac={
-		        //'prefill': " URL: " + window.location,
+		        'prefill': " URL: " + window.location,
 		     	'allowUpdate':true,
 				'onCancel': function(){console.log('Cancelled')},
 				'onSubmitted': function(id,link){console.log(' New ticket #'+id+" - link: "+ link)},
@@ -43,7 +43,7 @@
 		    		'onOut':function(){console.log("We got out of the annotation!")},
 		    		'kbShortcut':'alt+s',
 					'onRendered': function(img){
-						//optsTrac.img=img;
+						optsTrac.img=img;
 						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
 						}
 			}

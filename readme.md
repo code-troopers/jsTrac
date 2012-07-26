@@ -75,20 +75,142 @@ Check the provided example. At the moment, we can't provide a server for testing
 <table>
 	<tr>
 		<th>Name</th>
+		<th>Type</th>
 		<th>Default value</th>
 		<th>Description</th>
 	</tr>
 	<tr>
 		<td>zIndex</td>
+		<td>number</td>
 		<td>50000</td>
-		<td>Set the z-index of all the layers. 50000 should be enough but if you have a modal popup over it, you can chance the z-index of jsAnnotate here.</td>
+		<td>Set the z-index of all the layers. 50000 should be enough but if you have a modal popup over it, you can change the z-index of jsAnnotate here.</td>
 	</tr>
 	<tr>
-		<td>onPreprocessing</td>
+		<td>onRendered</td>
+		<td>function</td>
 		<td>null</td>
-		<td>Callback function executed before
-		
-		
+		<td>Callback function executed when the sreenshot has been rendered, cropped and converted to PNG base64. The image is passed as a parameter</td>
+	</tr>
+	<tr>
+		<td>onOut</td>
+		<td>function</td>
+		<td>null</td>
+		<td>Callback function executed when you leave jsAnnotate, be it cancel or submit
+	</td>
+	<tr>
+		<td>loadingDivId</td>
+		<td>string</td>
+		<td>null</td>
+		<td>A div where we a put a little loading message. Chance are it will appear on the screenshot.</td>
+	</tr>
+	<tr>
+		<td>kbShortcut</td>
+		<td>string</td>
+		<td>null</td>
+		<td>A keyboard shortcut which act like you clicked on the actual button to annotate. See [Mousetrap](http://craig.is/killing/mice) for format.</td>
+	</tr>
+</table>
+
+
+initTracForm(url,opts)
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Default value</th>
+		<th>Description</th>
+	</td>
+	<tr>
+		<td>img</td>
+		<td>string</td>
+		<td>null</td>
+		<td>An image in base64</td>
+	</tr>
+	<tr>
+		<td>zIndex</td>
+		<td>number</td>
+		<td>50000</td>
+		<td>Set the z-index of all the layers. 50000 should be enough but if you have a modal popup over it, you can change the z-index of jsTrac here.</td>
+	</tr>
+	<tr>
+		<td>rpcPlugin</td>
+		<td>string</td>
+		<td>/rpc</td>
+		<td>By default, the Trac XML-RPC provide 2 interfaces: /rpc and /login/rpc. See the [plugin](http://trac-hacks.org/wiki/XmlRpcPlugin)</td>
+	</tr>
+	<tr>
+		<td>prefill</td>
+		<td>string</td>
+		<td>null</td>
+		<td>A string containing any information you want to add to the ticket.</td>
+	</tr>
+	<tr>
+		<td>onSubmitted</td>
+		<td>function</td>
+		<td>null</td>
+		<td>Callback function called when the new ticket is submitted. The id of the ticket is passed as a parameter, plus a link to the ticket</td>
+	</tr>
+	<tr>
+		<td>onUpdated</td>
+		<td>function</td>
+		<td>null</td>
+		<td>Callback function called when a ticket is updated. The id of the ticket is passed as a parameter, plus a link to the ticket.</td>
+	</tr>
+	<tr>
+		<td>onCancel</td>
+		<td>function</td>
+		<td>null</td>
+		<td>Callback function called when you cancel.</td>
+	</tr>
+	<tr>
+		<td>defaultComponent</td>
+		<td>string</td>
+		<td>null</td>
+		<td>If the default component is found on trac, then the list will default to it or to the first of the list if not found. </td>
+	</tr>
+	<tr>
+		<td>defaultMilestone</td>
+		<td>string</td>
+		<td>null</td>
+		<td>If the default milestone is found on trac, then the list will default to it or to the first of the list if not found. </td>
+	</tr>
+	<tr>
+		<td>defaultPriority</td>
+		<td>string</td>
+		<td>null</td>
+		<td>If the default priority is found on trac, then the list will default to it or to the first of the list if not found. </td>
+	</tr>
+	<tr>
+		<td>defaultType</td>
+		<td>string</td>
+		<td>null</td>
+		<td>If the default type is found on trac, then the list will default to it or to the first of the list if not found. </td>
+	</tr>
+	<tr>
+		<td>lockDefault</td>
+		<td>string</td>
+		<td>null</td>
+		<td>Values are : 'hidden' and 'disabled'. By default, even if the default value described above are found, the user can still change it. This option either gray out the dropdown or hide it.</td>
+	</tr>
+	<tr>
+		<td>allowUpdate</td>
+		<td>boolean</td>
+		<td>false</td>
+		<td>Display the update tab. If true, you will need to set at least one of the following options.</td>
+	</tr>
+	<tr>
+		<td>updateAnyId</td>
+		<td>boolean</td>
+		<td>false</td>
+		<td>Enable an input where you can put any id.</td>
+	</tr>
+	<tr>
+		<td>tickQuery</td>
+		<td>string</td>
+		<td>null</td>
+		<td>Generate a drop down list of ticket conforming to the query. See the [Trac wiki](http://trac.edgewall.org/wiki/TicketQuery) for the format of the query. ( Not eveything might be supported at the moment )</td>
+	</tr>
+
 
 #Changelog
 

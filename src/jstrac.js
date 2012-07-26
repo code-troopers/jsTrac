@@ -408,8 +408,14 @@ function submitTracTicket() {
 		'component' : $('#componentSelect').val(),
 		'type' : $('#typeSelect').val()
 	};
+	if(option.prefill!=null){
+		var description= $('#descriptionField').val()  + "\n{{{\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n') + "\n}}}";
+	}
+	else{
+		var description= $('#descriptionField').val();
+	}
 	try{
-		return rpcTrac("ticket.create",$('#summaryField').val(), $('#descriptionField').val() + "\n{{{\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n') + "\n}}}", attributes );
+		return rpcTrac("ticket.create",$('#summaryField').val(), description, attributes );
 	}
 	catch(err){
 		console.debug(err);
@@ -455,8 +461,14 @@ function updateTracTicket(id,timestamp){
 	if (test.length>0){
 		attributes[test.attr('name')]=test.val();
 	}
+	if(option.prefill!=null){
+		var comment= $('#commentField').val()  + "\n{{{\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n') + "\n}}}";
+	}
+	else{
+		var comment= $('#commentField').val();
+	}
 	try{
-		return rpcTrac("ticket.update",id, $('#commentField').val()  + "\n{{{\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n') + "\n}}}",attributes);
+		return rpcTrac("ticket.update",id,comment,attributes);
 	}
 	catch(err){
 		console.debug(err);
@@ -471,8 +483,8 @@ return{
 	* @param img An image in base64
 	* @param callback Function to call when you submited or close the modal
 	*/
-	initTracForm : function(trac,opts) {
-		tracUrl=trac;
+	initTracForm : function(url,opts) {
+		tracUrl=url;
 		option=$.extend(true,option,opts);
 		var modal=$('<div>').attr('id','tracModalPopup').css('z-index',option.zIndex+1).appendTo('body');
 		modal.addClass('modal hide').on('hidden',function(){
