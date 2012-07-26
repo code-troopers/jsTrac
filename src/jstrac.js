@@ -1,4 +1,6 @@
 /**
+* jsTrac
+* A Javascript interface for Trac
 * @author Romain Laï-King
 * @version 1.0
 */
@@ -19,6 +21,7 @@ var jsTrac=(function(){
 		'lockDefault':null,
 		'allowUpdate':false,
 		'updateAnyId':false,
+		'zIndex':50000,
 		'ticketQuery':null
 	};
 
@@ -463,7 +466,7 @@ return{
 	*/
 	initTracForm : function(img,opts) {
 		option=$.extend(true,option,opts);
-		var modal=$('<div>').attr('id','tracModalPopup').appendTo('body');
+		var modal=$('<div>').attr('id','tracModalPopup').css('z-index',option.zIndex+1).appendTo('body');
 		$("#tracModalPopup").addClass('modal hide').on('hidden',function(){
 			modal.remove();
 			if(typeof option.onCancel == 'function')
@@ -477,7 +480,7 @@ return{
 		$('<button>').attr('type','button').addClass('close').attr('data-dismiss','modal').text('x').appendTo('#tracModalHeader');
 		$('<ul>').attr('id','tracTabBar').addClass('nav nav-tabs').appendTo('#tracModalHeader');
 		$('#tracModalPopup').modal('show');
-		$('.modal-backdrop').css('z-index','50000');
+		$('.modal-backdrop').css('z-index',option.zIndex);
 		$('<div>').attr('id','tracAppendZone').addClass('tab-content').appendTo('#tracForm');
 		$('<div>').attr('id','tracBarBase').addClass('tracBar').appendTo('#tracForm');
 		$('<button>').addClass('btn').text('Cancel').attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');

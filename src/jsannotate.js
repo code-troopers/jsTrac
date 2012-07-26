@@ -124,6 +124,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 	$.fn.annotate = function(callback) {
 		var pressedButton=this.selector;
+		var option={};
 		$(this.selector).click(function(){
 			var self = this;
 			$(pressedButton).hide();
