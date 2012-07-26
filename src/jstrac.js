@@ -9,7 +9,7 @@
 */
 var jsTrac=(function(){
 	var option={
-		'tracUrl':null,
+		'img':null,
 		'rpcPlugin':'/rpc' ,
 		'prefill':null,
 		'onSubmitted':null,
@@ -25,6 +25,7 @@ var jsTrac=(function(){
 		'zIndex':50000,
 		'ticketQuery':null
 	};
+	var tracUrl=null;
 
 /**
 * RPC method
@@ -35,7 +36,7 @@ var jsTrac=(function(){
 * */
 
 function rpcTrac(method) {
-	var request = new XmlRpcRequest(option.tracUrl+option.rpcPlugin, method);
+	var request = new XmlRpcRequest(tracUrl+option.rpcPlugin, method);
 
 	for (var i=1;i<arguments.length;i++){
 		request.addParam(arguments[i]);
@@ -307,11 +308,11 @@ function createTracForm(){
 			},
 			submitHandler : function(form) {
 				var result = submitTracTicket();
-				var name=addAttachment(result,$('#screenshotPreview').attr('src'));
+				var name=addAttachment(result,option.img);
 				$('#tracModalPopup').modal('hide');
 				$('#tracModalPopup').remove();
 				if (typeof option.onSubmitted=='function')
-				option.onSubmitted.call(this,result,option.tracUrl+"/ticket/"+result);
+				option.onSubmitted.call(this,result,tracUrl+"/ticket/"+result);
 			}
 		});
 
@@ -368,7 +369,7 @@ function createTracForm(){
 				rpcTracTicketAction($('#updateTicketField').val(),'#tracTicketAction');
 			});
 
-			//Validate the form and send the ticket
+			//Validate the form and update the ticket
 
 
 			$('#tracUpdatePane').validate({
@@ -376,18 +377,22 @@ function createTracForm(){
 					commentField : "required",
 				},
 				submitHandler : function(form) {
-					var name=addAttachment(ticket,$('#screenshotPreview').attr('src'));
+					var name=addAttachment(ticket,option.img);
 					var result = updateTracTicket(ticket,ts);
 					$('#tracModalPopup').modal('hide');
 					$('#tracModalPopup').remove();
 					if (typeof option.onUpdated=='function')
-					option.onUpdated.call(this,result[0],option.tracUrl+"/ticket/"+result[0]);
+					option.onUpdated.call(this,result[0],tracUrl+"/ticket/"+result[0]);
 				}
 			});
 
 		}
 		$('#tracBarBase').remove();
-		$('#tracModalPopup').modal('show');
+		$('#tracModalPopup').css({
+			'margin-top': Math.round($('#tracModalPopup').height()/-2),
+			'margin-right': Math.round($('#tracModalPopup').width()/-2),
+		})
+		//$('#tracModalPopup').modal('show');
 
 	}
 }
@@ -418,16 +423,18 @@ function submitTracTicket() {
 */
 
 function addAttachment(id,img) {
-	//Create the base64 data
-	var base = new Base64();
-	//Warning, the XMLRPC plugin's documentation has wrong informations. The file accepted is a binary, not base64
-	//If they fix it, remove the atob() function
-	base.bytes = atob(img.replace(/^data:image\/(png|jpg);base64,/, ""));
-	try{
-		var result = rpcTrac("ticket.putAttachment", id, "screenshot.png", "Automatic screenshot", base, false);
-	}
-	catch(err){
-
+	if(img!=null){
+		//Create the base64 object
+		var base = new Base64();
+		//Warning, the XMLRPC plugin's documentation has wrong informations. The file accepted is a binary, not base64
+		//If they fix it, remove the atob() function
+		base.bytes = atob(img.replace(/^data:image\/(png|jpg);base64,/, ""));
+		try{
+			var result = rpcTrac("ticket.putAttachment", id, "screenshot.png", "Automatic screenshot", base, false);
+		}
+		catch(err){
+		
+		}
 	}
 }
 
@@ -465,26 +472,33 @@ return{
 	* @param img An image in base64
 	* @param callback Function to call when you submited or close the modal
 	*/
-	initTracForm : function(img,opts) {
+	initTracForm : function(trac,opts) {
+		tracUrl=trac;
 		option=$.extend(true,option,opts);
 		var modal=$('<div>').attr('id','tracModalPopup').css('z-index',option.zIndex+1).appendTo('body');
-		$("#tracModalPopup").addClass('modal hide').on('hidden',function(){
+		modal.addClass('modal hide').on('hidden',function(){
 			modal.remove();
 			if(typeof option.onCancel == 'function')
 			option.onCancel.call(this);
 		});
 		var leftPane = $('<div>').attr('id','tracLeftPane').appendTo(modal);
-		leftPane.append("<img id='screenshotPreview' src='"+img+"' />");
+		if(option.img!=null){
+			leftPane.append("<img id='screenshotPreview' src='"+option.img+"' />");
+		}
 		prefillTrac('#tracLeftPane');
 		modal.append("<div  id='tracForm'>");
 		$('<div>').attr('id','tracModalHeader').appendTo('#tracForm');
 		$('<button>').attr('type','button').addClass('close').attr('data-dismiss','modal').text('x').appendTo('#tracModalHeader');
 		$('<ul>').attr('id','tracTabBar').addClass('nav nav-tabs').appendTo('#tracModalHeader');
-		$('#tracModalPopup').modal('show');
 		$('.modal-backdrop').css('z-index',option.zIndex);
 		$('<div>').attr('id','tracAppendZone').addClass('tab-content').appendTo('#tracForm');
 		$('<div>').attr('id','tracBarBase').addClass('tracBar').appendTo('#tracForm');
 		$('<button>').addClass('btn').text('Cancel').attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');
+		modal.modal('show');
+		modal.css({
+			'margin-top': Math.round(modal.height()/-2),
+			'margin-right': Math.round(modal.width()/-2),
+		})
 		createTracForm();
 	}
 };

@@ -38,23 +38,37 @@ These 2 scripts have several dependencies. Some of them could certainly be remov
 
  
 * Common lib
-
  * jQuery 1.7.2
- 
  * Bootstrap 2.0.4 ( Alert, Modal, Button, Tab )
-
 * jsAnnotate lib
-
  * html2canvas 0.34
- 
  * jQuery UI 1.8.22 ( Draggable )
- 
  * canvg 1.2
- 
   * rgbcolor
- 
  * Mousetrap
- 
  * Raphaël 2.1
+* jsTrac lib
+ * Mimic 2.2 ( Warning! This one is modified to allow credential )
+ * jQuery Validation
+ 
+The package provides these libraries in separate folders but do check for newer version.
+
+#How to use
+
+Check the provided example. At the moment, we can't provide a server for testing jsTrac feature, but the example will run a sample configuration and connect on your Trac. Here is the bare minimum for the complete workflow with images.
+
+~~
+
+		$(document).ready(function() {
+			var optsAnnotate={
+					'onRendered': function(img){
+						var optsTrac= { 'img' : img };
+						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
+						}
+			}
+			$('#reportbug').annotate(optsAnnotate);
+		});
+			
+~~
  
  

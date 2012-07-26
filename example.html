@@ -31,7 +31,7 @@
 		$(document).ready(function() {
 			//Options for jstrac
 		    var optsTrac={
-		        'prefill': " URL: " + window.location,
+		        //'prefill': " URL: " + window.location,
 		        'zIndex':100000,
 		     	'allowUpdate':true,
 				'onCancel': function(){console.log('Cancelled')},
@@ -44,13 +44,12 @@
 		    		'zIndex':100000,
 		    		'onOut':function(){console.log("We got out of the annotation!")},
 					'onPreprocessing': function(){console.log("Preprocessing before annotating")},
-					'onRendered': function(img){jsTrac.initTracForm(img,optsTrac)}
+					'onRendered': function(img){
+						//optsTrac.img=img;
+						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
+						}
 			}
-
-			$('#reportbug').click(function(){
-				optsTrac.tracUrl= $('#url_to_trac').val();
-			})
-			.annotate(optsAnnotate);
+			$('#reportbug').annotate(optsAnnotate);
 		});
 			
 		</script>		
