@@ -1,22 +1,14 @@
 /**
- * Based on jsfeedback by Niklas von Hertzen.
+ * jsAnnotate 1.0
+ * A Javascript interface to annotate your webpages
+ * Copyright © 2012 SRMVision https://www.srmvision.com/
+ * Licensed MIT, see license.txt
+ * 
+ * Partly based on jsfeedback by Niklas von Hertzen.
  * http://hertzen.com/experiments/jsfeedback/
  * Modified by Romain Laï-King
- *
- * Original file header are provided just below.
- * This has been renamed to jsAnnotate
- * as the original developper is planning a new version
- * and didn't participate in the development of this library
+ * @version 1.0
  */
-
-
-
-/**
- * @author Niklas von Hertzen <niklas at hertzen.com>
- * @created 13.7.2011
- * @website http://hertzen.com
- */
-
 
  /**
   * Convert a SVG to PNG.
@@ -39,7 +31,8 @@
  }
 
 /**
- * Based on http://jsfiddle.net/rRtAq/2039/ and  http://taitems.tumblr.com/post/549973287/drawing-arrows-in-raphaeljs
+ * Based on http://stackoverflow.com/questions/3582344/draw-a-connection-line-in-raphaeljs 
+ * and  http://taitems.tumblr.com/post/549973287/drawing-arrows-in-raphaeljs
  * Mixed the 2 to create an arrow
  * This function draw arrows by dragging
  * @class Line
@@ -123,15 +116,14 @@ function Line(startX, startY, endX, endY, raphael) {
 		var pressedButton=this.selector;
 		var option={
 				'zIndex':50000,
-				'onPreprocessing':null,
 				'onRendered':null,
+				'onOut':null,
 				'loadingDivId':null,
-				'onOut':null
+				'kbShortcut':null
 		};
 		$.extend(true,option,opts);
 		$(this.selector).click(function(){
-			if(typeof option.onPreprocessing== 'function')
-				option.onPreprocessing.call(this);
+
 			var self = this;
 			$(pressedButton).hide();
 	        var deleteMode=false;
@@ -274,7 +266,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 
 
-	        //Sticky note are based on http://jsfiddle.net/EnigmaMaster/aQMhk/6/
+	        //Sticky note are based on http://stackoverflow.com/questions/10229294/javascript-sticky-notes
 	        var sticky= $('<div>').addClass('stickyNoteHeader').css('z-index',option.zIndex+8);
 	        $('<p>').text('Move').appendTo(sticky);
 	        $('<button>').attr('type','button').addClass('close closeNote').text('x').css('margin-right','5px').appendTo(sticky);
@@ -579,6 +571,11 @@ function Line(startX, startY, endX, endY, raphael) {
 					});
 	         });
 		});
+		if(option.kbShortcut!=null){
+			Mousetrap.bind(option.kbShortcut,function(e){
+				$(pressedButton).trigger('click')}
+			);
+		}
 		return this;
 	};
 })(jQuery); 

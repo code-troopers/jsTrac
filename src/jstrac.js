@@ -1,6 +1,8 @@
 /**
 * jsTrac
 * A Javascript interface for Trac
+* Copyright © 2012 SRMVision https://www.srmvision.com/
+* Licensed MIT, see license.txt
 * @author Romain Laï-King
 * @version 1.0
 */
@@ -300,7 +302,7 @@ function createTracForm(){
 		$('<button>').attr('type', 'submit').addClass('btn btn-primary').text('Submit').appendTo('#tracBarBase');
 		$('#tracBarBase').clone().appendTo('#tracNewPane').attr('id','tracBarNewPane');
 
-
+		//Validate the form and submit the ticket
 		$('#tracNewPane').validate({
 			rules : {
 				summaryField : "required",
@@ -389,11 +391,8 @@ function createTracForm(){
 		}
 		$('#tracBarBase').remove();
 		$('#tracModalPopup').css({
-			'margin-top': Math.round($('#tracModalPopup').height()/-2),
-			'margin-right': Math.round($('#tracModalPopup').width()/-2),
+			'margin-left': Math.round($('#tracModalPopup').width()/-2)
 		})
-		//$('#tracModalPopup').modal('show');
-
 	}
 }
 
@@ -498,8 +497,7 @@ return{
 			modal.width('800px')
 		}
 		modal.css({
-			'margin-top': Math.round(modal.height()/-2),
-			'margin-right': Math.round(modal.width()/-2),
+			'margin-left': Math.round(modal.width()/-2),
 		});
 		modal.modal('show');
 		

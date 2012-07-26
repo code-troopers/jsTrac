@@ -1,4 +1,6 @@
 /*
+	Copyright © 2012 SRMVision https://www.srmvision.com/
+	Licensed MIT, see license.txt
 	Document: jstrac.css
 	Created: 24th of July, 2012
 	Author: Romain Laï-King
@@ -7,6 +9,7 @@
 
 #tracModalPopup{
 max-width:800px;
+margin-top:-250px;
 }
 
 #tracModalHeader{

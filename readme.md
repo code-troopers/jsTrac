@@ -55,7 +55,7 @@ The package provides these libraries in separate folders but do check for newer 
 
 #How to use
 
-Check the provided example. At the moment, we can't provide a server for testing jsTrac feature, but the example will run a sample configuration and connect on your Trac. Here is the bare minimum for the complete workflow with images.
+Check the provided example. At the moment, we can't provide a server for testing jsTrac feature, but the example will run a sample configuration and connect on your Trac. Here is the bare minimum for the complete workflow with images, using jQuery.
 
 ~~
 
@@ -70,7 +70,26 @@ Check the provided example. At the moment, we can't provide a server for testing
 		});
 			
 ~~
- 
+#Options
+.annotate(opts)
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Default value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>zIndex</td>
+		<td>50000</td>
+		<td>Set the z-index of all the layers. 50000 should be enough but if you have a modal popup over it, you can chance the z-index of jsAnnotate here.</td>
+	</tr>
+	<tr>
+		<td>onPreprocessing</td>
+		<td>null</td>
+		<td>Callback function executed before
+		
+		
+
 #Changelog
 
 v1.0

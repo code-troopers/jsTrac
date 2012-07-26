@@ -1,20 +1,10 @@
 /* 
+	Copyright © 2012 SRMVision https://www.srmvision.com/
+ 	Licensed MIT, see license.txt
+ 	Partly based on jsfeedback by Niklas von Hertzen.
+  	http://hertzen.com/experiments/jsfeedback/
 	CSS modified by Romain Laï-King
-	Original headers just below.
 */
-
-/* 
-    Document   : feedback
-    Created on : 13.7.2011, 17:48:48
-    Author     : Niklas von Hertzen <niklas at hertzen.com>
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-/* 
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
 
 #feedbackForm{
    font-family: arial,sans-serif;
@@ -116,7 +106,8 @@ font-size:30px;
 	cursor:move;
 }
 .stickyNoteHeader p{
-margin-top:4px;
+margin:2px;
+padding-top:3px;
 display:inline-block;
 }
 

@@ -79,7 +79,16 @@
 			var optsAnnotate={
 		    		'zIndex':100000,
 		    		'onOut':function(){console.log("We got out of the annotation!")},
-					'onPreprocessing': function(){
+					
+					'onRendered': function(img){
+						//We put back the iframe where it belonged and remove the image
+						$('iframe').show();
+						$('iframe').parent().find('img').remove();
+						optsTrac.img=img;
+						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
+						}
+			}
+			$('#reportbug').click( function(){
 						if($('input:radio[name=groupPrepro]:checked').val()=="true"){
 							console.log("With preprocessing");
 							//We retrieve the SVG, then convert it to PNG
@@ -89,21 +98,13 @@
 							var height = svg.attr('height');
 							var img = svg2png(svgString,width,height);
 							//We put the new image in place of the iframe
-							$('iframe').append("<img  src='"+img+"' />");
+							$('iframe').parent().append("<img  src='"+img+"' />");
 							$('iframe').hide();
 							}
 						else{
 							console.log("Without preprocessing");
 						}
-						},
-					'onRendered': function(img){
-						//We put back the iframe where it belonged and remove the image
-						$('iframe').show();
-						$('iframe').parent().find('img').remove();
-						optsTrac.img=img;
-						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
-						}
-			}
+						});
 			$('#reportbug').annotate(optsAnnotate);
 		});
 			
