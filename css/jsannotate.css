@@ -1,4 +1,9 @@
 /* 
+	CSS modified by Romain Laï-King
+	Original headers just below.
+*/
+
+/* 
     Document   : feedback
     Created on : 13.7.2011, 17:48:48
     Author     : Niklas von Hertzen <niklas at hertzen.com>
@@ -11,7 +16,7 @@
 */
 
 
-#feedback, #feedbackForm{
+#feedbackForm{
    font-family: arial,sans-serif;
     font-size:13px;
     -moz-box-shadow: 0px 0px 15px #cacaca;
@@ -30,7 +35,6 @@
 	left : 0;
 	bottom : 0;
 	background : #fff;
-	z-index : 50010;
     padding:10px;
 	cursor:move;
 }
@@ -73,7 +77,6 @@ margin-bottom:5px;
 	width: 100%;
 	height: 100%;
 	margin: 0;
-	z-index: 49999;
 	filter:alpha(opacity=50);
 }
 
@@ -84,7 +87,6 @@ margin-bottom:5px;
 	margin: 0;
 	width:100%;
 	height:100%;
-	z-index:50004;
 	display:inline;
 	pointer-events:none;
 }
@@ -111,7 +113,6 @@ font-size:30px;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
 	border-radius:5px;
-	z-index:50003;
 	cursor:move;
 }
 .stickyNoteHeader p{

@@ -122,22 +122,31 @@ function Line(startX, startY, endX, endY, raphael) {
 	* @param  callCancel When the user cancel
 	*/
 
-	$.fn.annotate = function(callback) {
+	$.fn.annotate = function(opts) {
 		var pressedButton=this.selector;
-		var option={};
+		var option={
+				'zIndex':50000,
+				'onPreprocessing':null,
+				'onRendered':null,
+				'loadingDiv':null,
+				'onOut':null
+		};
+		$.extend(true,option,opts);
 		$(this.selector).click(function(){
+			if(typeof option.onPreprocessing== 'function')
+				option.onPreprocessing.call(this);
 			var self = this;
 			$(pressedButton).hide();
-			//var loadingZone= '#' +  loadingZone;
 	        var deleteMode=false;
 			var reset = {
 				'margin' : 0
 			}, createDiv, createDivLeft, createDivTop, overlay, feedbackDiv, line;
-
+			
 
 
 			arrowOverlay = $('<span/>')
 			.css(reset)
+			.css('z-index',option.zIndex+9)
 			.attr('id','arrowOverlay')
 			.appendTo('body');
 			var paper = Raphael(document.getElementById('arrowOverlay'),document.width,document.height);
@@ -146,7 +155,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	        .children('svg')
 	        .css({
 	            'pointer-events':'none',
-	            'z-index':50005,
+	            'z-index':option.zIndex+10,
 	            '-moz-user-drag': '-moz-none',
 	            '-webkit-user-drag': 'none',
 	            'user-drag': 'none',
@@ -189,13 +198,13 @@ function Line(startX, startY, endX, endY, raphael) {
 
 
 			function arrowForward(){
-	             arrowOverlay.css('z-index',50004);
-	             svgLayer.css('z-index',50005);
+	             arrowOverlay.css('z-index',option.zIndex+9);
+	             svgLayer.css('z-index',option.zIndex+10);
 			}
 
 			function arrowBackground(){
-	               arrowOverlay.css('z-index',49997);
-	               svgLayer.css('z-index',49997);
+	               arrowOverlay.css('z-index',option.zIndex);
+	               svgLayer.css('z-index',option.zIndex);
 			}
 
 			if(compatilibityMode){
@@ -269,7 +278,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 
 	        //Sticky note are based on http://jsfiddle.net/EnigmaMaster/aQMhk/6/
-	        var sticky= $('<div>').addClass('stickyNoteHeader');
+	        var sticky= $('<div>').addClass('stickyNoteHeader').css('z-index',option.zIndex+8);
 	        $('<p>').text('Move').appendTo(sticky);
 	        $('<button>').attr('type','button').addClass('close closeNote').text('x').css('margin-right','5px').appendTo(sticky);
 	        $('<div>').addClass('stickyNoteBody').append('<textarea>').appendTo(sticky);
@@ -382,8 +391,8 @@ function Line(startX, startY, endX, endY, raphael) {
 				$('.stickyNoteHeader').remove();
 				$('.feedbackBlack').remove();
 				$(pressedButton).show();
-				//callCancel.call(this);
-			});
+				if(typeof option.onOut== 'function')
+					option.onOut.call(this);			});
 
 			Mousetrap.bind('esc',function(){
 				cancel.trigger('click');
@@ -447,10 +456,11 @@ function Line(startX, startY, endX, endY, raphael) {
 							loading.remove();
 							$('.stickyNoteHeader').remove();
 							$('body').css('cursor','auto');
-							if(typeof callback == 'function'){
-								callback.call(this,base64);
-							}
 							$(pressedButton).show();
+							if(typeof option.onRendered== 'function')
+								option.onRendered.call(this,base64);
+							if(typeof option.onOut== 'function')
+								option.onOut.call(this);
 						}
 					});
 
@@ -477,7 +487,8 @@ function Line(startX, startY, endX, endY, raphael) {
 			.css({
 				'position':'fixed',
 				'bottom':'0px',
-				'left':'Opx'
+				'left':'Opx',
+				'z-index':option.zIndex+15
 			})
 			.appendTo('body');
 
@@ -487,7 +498,8 @@ function Line(startX, startY, endX, endY, raphael) {
 			.css(reset)
 			.css({
 				'width':document.width,
-				'height':document.height
+				'height':document.height,
+				'z-index':option.zIndex+2
 			})
 			.attr('id','feedbackOverlay')
 			.appendTo('body').mousedown(function(e) {
@@ -505,7 +517,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				if(color=='black'){
 					createDiv.css({
 						'background' : '#000',
-						'z-index' : 50002
+						'z-index' : option.zIndex+7
 						})
 					.addClass('feedbackBlack')
 					.appendTo('body')
@@ -514,7 +526,7 @@ function Line(startX, startY, endX, endY, raphael) {
 					$('.feedbackCrop').remove();
 					createDiv.css({
 						'background' : '#fff',
-						'z-index' : 50000
+						'z-index' : option.zIndex+5
 					})
 
 					.addClass('feedbackCrop')
@@ -526,7 +538,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				else{
 					createDiv.css({
 						'background' : color,
-						'z-index' : 50001
+						'z-index' : option.zIndex+6
 					}) 
 					.addClass(feedbackClass)
 					.appendTo(overlay)

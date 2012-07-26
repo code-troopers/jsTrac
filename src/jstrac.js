@@ -13,6 +13,7 @@ var jsTrac=(function(){
 		'rpcPlugin':'/rpc' ,
 		'prefill':null,
 		'onSubmitted':null,
+		'onUpdated':null,
 		'onCancel':null,
 		'defaultComponent':null,
 		'defaultMilestone':null,
@@ -310,7 +311,7 @@ function createTracForm(){
 				$('#tracModalPopup').modal('hide');
 				$('#tracModalPopup').remove();
 				if (typeof option.onSubmitted=='function')
-				option.onSubmitted.call(this,result);
+				option.onSubmitted.call(this,result,option.tracUrl+"/ticket/"+result);
 			}
 		});
 
@@ -379,8 +380,8 @@ function createTracForm(){
 					var result = updateTracTicket(ticket,ts);
 					$('#tracModalPopup').modal('hide');
 					$('#tracModalPopup').remove();
-					if (typeof option.onSubmitted=='function')
-					option.onSubmitted.call(this,result[0]);
+					if (typeof option.onUpdated=='function')
+					option.onUpdated.call(this,result[0],option.tracUrl+"/ticket/"+result[0]);
 				}
 			});
 
@@ -404,7 +405,7 @@ function submitTracTicket() {
 		'type' : $('#typeSelect').val()
 	};
 	try{
-		return rpcTrac("ticket.create",$('#summaryField').val(), $('#descriptionField').val() + "\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n'), attributes );
+		return rpcTrac("ticket.create",$('#summaryField').val(), $('#descriptionField').val() + "\n{{{\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n') + "\n}}}", attributes );
 	}
 	catch(err){
 		console.debug(err);
@@ -449,7 +450,7 @@ function updateTracTicket(id,timestamp){
 		attributes[test.attr('name')]=test.val();
 	}
 	try{
-		return rpcTrac("ticket.update",id, $('#commentField').val()  + "\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n'),attributes);
+		return rpcTrac("ticket.update",id, $('#commentField').val()  + "\n{{{\n" + $('#prefillTrac').html().replace(/<br>|<br\/>/g,'\n') + "\n}}}",attributes);
 	}
 	catch(err){
 		console.debug(err);
@@ -493,31 +494,4 @@ return{
 
 
 
-$(document).ready(function() {
-	var opts={
-		'prefill': " URL: " + window.location+
-		" <br> Organisation: " + $("[name=fieldsetOrga] option:selected").text() +
-		" <br> Personate: " + $("[name=fieldsetUser] option:selected").text() +
-		" <br> Module: " + $("body").attr('id') ,
-		'defaultComponent': $("body").attr('id') ,
-		'callback': function(){
-			$('#reportTracBug').show();
-		}
-	}
-	if(jQuery.browser.msie){
-		$('#reportTracBug').remove();
-	}
-
-	$('#reportTracBug').click(function(){
-		reportTracBug(opts);
-	});
-	Mousetrap.bind('alt+s', function(e) {
-		if($('#reportTracBug:hidden').length == 0 )
-		reportTracBug(opts);
-	});
-	Mousetrap.bind('up up down down left right left right b a', function() {
-		if($('#reportTracBug:hidden').length == 0 )
-		reportTracBug(opts);
-	});
-});
 

@@ -5,19 +5,20 @@
 		<title>example</title>
 		
 		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		<link rel="stylesheet" href="css/jsfeedback.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="css/jsannotate.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<link rel="stylesheet" href="css/jstrac.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		<!-- Common Library -->
+		<!-- Common library -->
 		<script src="common/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="common/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-		<!-- Library for jsfeeback -->
-		<script src="jsfeedbacklib/canvg.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jsfeedbacklib/html2canvas.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jsfeedbacklib/jquery-ui-1.8.21.custom.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jsfeedbacklib/mousetrap.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jsfeedbacklib/raphael-min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jsfeedbacklib/rgbcolor.js" type="text/javascript" charset="utf-8"></script>
-		<!-- Library for jstrac -->
+		<!-- Library for jsAnnotate -->
+		<script src="jsannotatelib/canvg.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsannotatelib/html2canvas.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsannotatelib/jquery-ui-1.8.21.custom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsannotatelib/mousetrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsannotatelib/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jsannotatelib/rgbcolor.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!-- Library for jsTrac -->
 		<script src="jstraclib/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="jstraclib/mimic.js" type="text/javascript" charset="utf-8"></script>
 
@@ -29,7 +30,7 @@
 
 		$(document).ready(function() {
 			//Options for jstrac
-		    var opts={
+		    var optsTrac={
 		        'prefill': " URL: " + window.location,
 		        'defaultComponent': 'wiki',
 				'defaultPriority' : 'blocker',
@@ -37,17 +38,22 @@
 				'defaultType': 'bug',
 				'lockDefault': 'hidden',
 				'allowUpdate':true,
-				'onCancel': function(){console.log('cancel')},
-				'onSubmitted': function(id){console.log('ticket #'+id)},
+				'onCancel': function(){console.log('Cancelled')},
+				'onSubmitted': function(id,link){console.log(' New ticket #'+id+" - link: "+ link)},
+				'onUpdated': function(id,link){console.log(' Updated ticket #'+id+" - link: "+ link)},
 				'updateAnyId':true
 		    }
+			
+			var optsAnnotate={
+					'onOut':function(){console.log("We got out of the annotation!")},
+					'onPreprocessing': function(){console.log("Preprocessing before annotating")},
+					'onRendered': function(img){jsTrac.initTracForm(img,optsTrac)}
+			}
 
 			$('#reportbug').click(function(){
-				opts.tracUrl= $('#url_to_trac').val();
+				optsTrac.tracUrl= $('#url_to_trac').val();
 			})
-			.annotate(function(img){
-				jsTrac.initTracForm(img,opts);
-			});
+			.annotate(optsAnnotate);
 		});
 			
 		</script>		
