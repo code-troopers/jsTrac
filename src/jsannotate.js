@@ -117,9 +117,6 @@ function Line(startX, startY, endX, endY, raphael) {
 
 	/**
 	* Function which create the whole annotation form
-	* @param loadingZone  id of the DOM element where we append the loading message
-	* @param  callPreview Function called when we want a preview, pass a parameter image in base64
-	* @param  callCancel When the user cancel
 	*/
 
 	$.fn.annotate = function(opts) {
@@ -128,7 +125,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				'zIndex':50000,
 				'onPreprocessing':null,
 				'onRendered':null,
-				'loadingDiv':null,
+				'loadingDivId':null,
 				'onOut':null
 		};
 		$.extend(true,option,opts);
@@ -406,7 +403,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				arrowForward();
 				deleteMode=false;
 				var loading=$('<span>').attr('id','tracLoading').text('Loading');
-				//$(loadingZone).prepend(loading);
+				$('#'+option.loadingDivId).prepend(loading);
 				$('.feedbackRed').css({
 					'background' : 'none',
 					'border' : 'solid 4px red'

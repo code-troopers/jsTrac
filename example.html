@@ -32,12 +32,8 @@
 			//Options for jstrac
 		    var optsTrac={
 		        'prefill': " URL: " + window.location,
-		        'defaultComponent': 'wiki',
-				'defaultPriority' : 'blocker',
-				'defaultMilestone': 'bugfix48',
-				'defaultType': 'bug',
-				'lockDefault': 'hidden',
-				'allowUpdate':true,
+		        'zIndex':100000,
+		     	'allowUpdate':true,
 				'onCancel': function(){console.log('Cancelled')},
 				'onSubmitted': function(id,link){console.log(' New ticket #'+id+" - link: "+ link)},
 				'onUpdated': function(id,link){console.log(' Updated ticket #'+id+" - link: "+ link)},
@@ -45,7 +41,8 @@
 		    }
 			
 			var optsAnnotate={
-					'onOut':function(){console.log("We got out of the annotation!")},
+		    		'zIndex':100000,
+		    		'onOut':function(){console.log("We got out of the annotation!")},
 					'onPreprocessing': function(){console.log("Preprocessing before annotating")},
 					'onRendered': function(img){jsTrac.initTracForm(img,optsTrac)}
 			}
@@ -61,12 +58,14 @@
 	<body>
 		
 <h1>Important: How to use this example</h1>
+<div id="loading"></div>
 	
 <p>In order to test jsTrac, you will need to provide the URL to a Trac server which has a recent version of the XML-RPC plugin.<br/><br/>
 	
 If your server Trac isn't on the same domain as the one you are using this example, then you will need to setup Cross-Origin Ressource Sharing ( CORS ). As such, it's recommended to run this page on an HTTP server and set the necessary header for CORS on your Trac server. Configuration for Apache server are available in the documentation.<br/><br/>
 
 Alternatively, if you are using Chrome, you can use the following arguments at startup to remove the securities: --args --disable-web-security<br/><br/>
+Safari doesn't seem to have any XSS protection when using the "file://" protocol.
 	
 Otherwise, you will be limited to jsfeedback<br/><br/>
 
