@@ -57,19 +57,19 @@ The package provides these libraries in separate folders but do check for newer 
 
 Check the provided example. At the moment, we can't provide a server for testing jsTrac feature, but the example will run a sample configuration and connect on your Trac. Here is the bare minimum for the complete workflow with images, using jQuery.
 
-~~
+
 
 		$(document).ready(function() {
 			var optsAnnotate={
 					'onRendered': function(img){
 						var optsTrac= { 'img' : img };
-						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
+						jsTrac.initTracForm("http://trac.example.com",optsTrac);
 						}
 			}
-			$('#reportbug').annotate(optsAnnotate);
+			$('#reportBugButton').annotate(optsAnnotate);
 		});
 			
-~~
+
 #Options
 ##.annotate(opts)
 
@@ -113,7 +113,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 </table>
 
 
-##initTracForm(url,opts)
+##jsTrac.initTracForm(url,opts)
 
 <table>
 	<tr>
