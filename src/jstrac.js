@@ -24,8 +24,8 @@ var jsTrac=(function(){
 		'lockDefault':null,
 		'allowUpdate':false,
 		'updateAnyId':false,
-		'zIndex':50000,
-		'ticketQuery':null
+		'ticketQuery':null,
+		'zIndex':50000
 	};
 	var tracUrl=null;
 
