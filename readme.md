@@ -71,7 +71,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 			
 ~~
 #Options
-.annotate(opts)
+##.annotate(opts)
 <table>
 	<tr>
 		<th>Name</th>
@@ -112,7 +112,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 </table>
 
 
-initTracForm(url,opts)
+##initTracForm(url,opts)
 <table>
 	<tr>
 		<th>Name</th>
@@ -205,11 +205,12 @@ initTracForm(url,opts)
 		<td>Enable an input where you can put any id.</td>
 	</tr>
 	<tr>
-		<td>tickQuery</td>
+		<td>ticketQuery</td>
 		<td>string</td>
 		<td>null</td>
 		<td>Generate a drop down list of ticket conforming to the query. See the [Trac wiki](http://trac.edgewall.org/wiki/TicketQuery) for the format of the query. ( Not eveything might be supported at the moment )</td>
 	</tr>
+</table>
 
 
 #Changelog
