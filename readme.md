@@ -72,6 +72,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 ~~
 #Options
 ##.annotate(opts)
+
 <table>
 	<tr>
 		<th>Name</th>
@@ -107,12 +108,13 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>kbShortcut</td>
 		<td>string</td>
 		<td>null</td>
-		<td>A keyboard shortcut which act like you clicked on the actual button to annotate. See [Mousetrap](http://craig.is/killing/mice) for format.</td>
+		<td>A keyboard shortcut which act like you clicked on the actual button to annotate. See <a href="http://craig.is/killing/mice">Mousetrap</a> for format.</td>
 	</tr>
 </table>
 
 
 ##initTracForm(url,opts)
+
 <table>
 	<tr>
 		<th>Name</th>
@@ -136,7 +138,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>rpcPlugin</td>
 		<td>string</td>
 		<td>/rpc</td>
-		<td>By default, the Trac XML-RPC provide 2 interfaces: /rpc and /login/rpc. See the [plugin](http://trac-hacks.org/wiki/XmlRpcPlugin)</td>
+		<td>By default, the Trac XML-RPC provide 2 interfaces: /rpc and /login/rpc. See the <a href="http://trac-hacks.org/wiki/XmlRpcPlugin">plugin</a></td>
 	</tr>
 	<tr>
 		<td>prefill</td>
@@ -208,7 +210,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>ticketQuery</td>
 		<td>string</td>
 		<td>null</td>
-		<td>Generate a drop down list of ticket conforming to the query. See the [Trac wiki](http://trac.edgewall.org/wiki/TicketQuery) for the format of the query. ( Not eveything might be supported at the moment )</td>
+		<td>Generate a drop down list of ticket conforming to the query. See the <a href="http://trac.edgewall.org/wiki/TicketQuery">Trac query</a> for the format of the query. ( Not eveything might be supported at the moment )</td>
 	</tr>
 </table>
 
