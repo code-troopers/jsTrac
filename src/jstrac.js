@@ -25,9 +25,70 @@ var jsTrac=(function(){
 		'allowUpdate':false,
 		'updateAnyId':false,
 		'ticketQuery':null,
-		'zIndex':50000
+		'zIndex':50000,
+		'localization':'en',
+		'getLocalization':null,
+		'nsLocalization':null
 	};
+	var translation={
+			'en':{
+				'newTicket':'New ticket',
+				'summary':'Summary',
+				'description':'Description',
+				'type':'Type',
+				'priority':'Priority',
+				'milestone':'Milestone',
+				'component':'Component',
+				'submit':'Submit',
+				'cancel':'Annuler',
+				'errorXhr':'XHR error, check that you are connected, authentified to the Trac server and that CORS is properly setup',
+				'error403':'403 error, check that you are connected and authentified to the Trac server',
+				'errorUnknow':'Unidentified error, check that you are connected and authentified to the Trac server',
+				'retry':'Retry',
+				'updateTicket':'Update ticket',
+				'ticketList':'Ticket list',
+				'ticketId':'Ticket #',
+				'comment':'Comment',
+				'prefill':'Prefilled informations:'
+			},
+			'fr':{
+				'newTicket':'Nouveau ticket',
+				'summary':'R\u00e9sum\u00e9',
+				'description':'Description',
+				'type':'Type',
+				'priority':'Priorit\u00e9',
+				'milestone':'Milestone',
+				'component':'Composant',
+				'submit':'Envoyer',
+				'cancel':'Annuler',
+				'errorXhr':'Erreur XHR, v\u00e9rifiez que vous \u00eates bien connect\u00e9, authentifi\u00e9 au serveur Trac et que le CORS est bien param\u00e9tr\u00e9',
+				'error403':'403 error, v\u00e9rifiez que vous \u00eates bien connect\u00e9 et authentifi\u00e9 au serveur Trac',
+				'errorUnknow':'Erreur non identifiable, v\u00e9rifiez que vous \u00eates bien connect\u00e9 et authentifi\u00e9 au serveur Trac',
+				'retry':'R\u00e9essayer',
+				'updateTicket':'Mettre \u00e0 jour',
+				'ticketList':'Liste de ticket',
+				'ticketId':'Ticket #',
+				'comment':'Commentaire',
+				'prefill':'Informations pr\u00e9remplies:'
+			}
+	}
 	var tracUrl=null;
+/**
+ * Function to localize. Can use another function with callback getTranslation.
+ * @param key to the string
+ * @returns translated string
+ */
+function iT(key){
+	if (typeof option.getLocalization != 'function'){
+		return translation[option.localization][key];
+	}
+	else{
+		if(option.nsLocalization!=null){
+			key= option.nsLocalization + key;
+		}
+		return option.getLocalization.call(this,key);
+	}
+}
 
 /**
 * RPC method
@@ -228,7 +289,7 @@ function rpcTracTicketAction(id,append){
 		$('input:radio[name=tracAction]').val([data[0][0]]);
 	}
 	catch(err){
-		console.log("Most likely, unknow ticket. Error= " + err.faultString);
+		console.log("Most likely, unknow ticket. Error returned by Trac= " + err.faultString);
 	}
 
 }
@@ -245,13 +306,13 @@ function testTracConnection(){
 	catch(err){
 		$('<div>').addClass('alert alert-error').attr('id','tracAlert').appendTo('#tracAppendZone');;
 		if(err.code==101){
-			$('<p>').text('101 error from XHR, check that you are connected and logged to the Trac server and that XSS are allowed').appendTo('#tracAlert');
+			$('<p>').text(iT('errorXhr')).appendTo('#tracAlert');
 		}
 		else if(err.faultCode==403){
-			$('<p>').text('403 error from Trac, check that you are connected and logged to the Trac server').appendTo('#tracAlert');
+			$('<p>').text(iT('error403')).appendTo('#tracAlert');
 		}
 		else{
-			$('<p>').text('Unidentified error, check that you are connected and logged to the Trac server').appendTo('#tracAlert');
+			$('<p>').text(error('errorUnknown')).appendTo('#tracAlert');
 		}
 		var retry=$('<button>').attr('data-dismiss','alert').attr('type','button').addClass('btn').text('Retry').appendTo('#tracAlert');
 		retry.click(function(){
@@ -270,7 +331,7 @@ function testTracConnection(){
 
 function prefillTrac(append){
 	if(option.prefill!=null){
-		var text = "Prefilled information <br> "+ option.prefill;
+		var text = iT('prefill')+ " <br> "+ option.prefill;
 		var prefill = $('<div>').attr('id','prefillTrac').append(text);
 	}
 	else{
@@ -290,16 +351,16 @@ function createTracForm(){
 		// New Pane
 		var li,data,ticket,ts;
 		li = $('<li>').addClass('active').appendTo('#tracTabBar');
-		$('<a>').attr('href','#tracNewPane').attr('data-toggle','tab').text('New ticket').appendTo(li);
+		$('<a>').attr('href','#tracNewPane').attr('data-toggle','tab').text(iT('newTicket')).appendTo(li);
 		$('<form>').attr('id','tracNewPane').addClass('tab-pane active').appendTo('#tracAppendZone');
-		createInputText("summaryField",'Summary','#tracNewPane');
+		createInputText("summaryField",iT('summary'),'#tracNewPane');
 
-		createTextArea("descriptionField",'Description',9,'#tracNewPane');
-		rpcAndCreateSelect("ticket.type.getAll", "typeSelect",'Type','#tracNewPane',option.defaultType);
-		rpcAndCreateSelect("ticket.priority.getAll", "prioritySelect", 'Priority','#tracNewPane',option.defaultPriority);
-		rpcMilestone("milestoneSelect", 'Milestone','#tracNewPane');
-		rpcAndCreateSelect("ticket.component.getAll", "componentSelect", 'Component','#tracNewPane',option.defaultComponent);
-		$('<button>').attr('type', 'submit').addClass('btn btn-primary').text('Submit').appendTo('#tracBarBase');
+		createTextArea("descriptionField",iT('description'),9,'#tracNewPane');
+		rpcAndCreateSelect("ticket.type.getAll", "typeSelect",iT('type'),'#tracNewPane',option.defaultType);
+		rpcAndCreateSelect("ticket.priority.getAll", "prioritySelect", iT('priority'),'#tracNewPane',option.defaultPriority);
+		rpcMilestone("milestoneSelect",iT('milestone'),'#tracNewPane');
+		rpcAndCreateSelect("ticket.component.getAll", "componentSelect", iT('component'),'#tracNewPane',option.defaultComponent);
+		$('<button>').attr('type', 'submit').addClass('btn btn-primary').text(iT('submit')).appendTo('#tracBarBase');
 		$('#tracBarBase').clone().appendTo('#tracNewPane').attr('id','tracBarNewPane');
 
 		//Validate the form and submit the ticket
@@ -322,7 +383,7 @@ function createTracForm(){
 		if(option.allowUpdate&&(option.ticketQuery||option.updateAnyId)){
 			//Adding to tabbar
 			li = $('<li>').appendTo('#tracTabBar');
-			$('<a>').attr('href','#tracUpdatePane').attr('data-toggle','tab').text('Update ticket').appendTo(li);
+			$('<a>').attr('href','#tracUpdatePane').attr('data-toggle','tab').text(iT('updateTicket')).appendTo(li);
 
 			//the pane itself
 			$('<form>').attr('id','tracUpdatePane').addClass('tab-pane').appendTo('#tracAppendZone');
@@ -335,19 +396,19 @@ function createTracForm(){
 					console.log("Invalid query");
 				}
 				$('<div>').attr('id','updateTicketIdSelect').appendTo('#tracUpdatePane');
-				createSelect(data,"updateTicketSelect",'Ticket list','#updateTicketIdSelect');
+				createSelect(data,"updateTicketSelect",iT('ticketList'),'#updateTicketIdSelect');
 				rpcTracTicketAction($('#updateTicketSelect').val(),'#tracTicketAction');
 				ticket=$('#updateTicketSelect').val();
 				ts=rpcTracTicketInfo($('#updateTicketSelect').val(),'#tracTicketInfo');
 			}
 			if(option.updateAnyId){
 				$('<div>').addClass('tracSelect').attr('id','updateTicketIdField').appendTo('#tracUpdatePane');
-				createInputText("updateTicketField",'Ticket #','#updateTicketIdField');
+				createInputText("updateTicketField",iT('ticketId'),'#updateTicketIdField');
 			}
 			$('<div>').attr('id','tracTicketInfo').appendTo('#tracUpdatePane');
 
 
-			createTextArea("commentField",'Comment',9,'#tracUpdatePane');
+			createTextArea("commentField",iT('comment'),9,'#tracUpdatePane');
 			$('<div>').attr('id','tracTicketAction').appendTo('#tracUpdatePane');
 
 
@@ -504,7 +565,7 @@ return{
 		$('.modal-backdrop').css('z-index',option.zIndex);
 		$('<div>').attr('id','tracAppendZone').addClass('tab-content').appendTo('#tracForm');
 		$('<div>').attr('id','tracBarBase').addClass('tracBar').appendTo('#tracForm');
-		$('<button>').addClass('btn').text('Cancel').attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');
+		$('<button>').addClass('btn').text(iT('cancel')).attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');
 		if (option.prefill!=null || option.img!=null){
 			modal.width('800px')
 		}

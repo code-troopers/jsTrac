@@ -120,9 +120,9 @@ function Line(startX, startY, endX, endY, raphael) {
 				'onOut':null,
 				'loadingDivId':null,
 				'kbShortcut':null,
-				'language':'en',
-				'getTranslation':null,
-				'nsTranslation': null
+				'localization':'en',
+				'getLocalization':null,
+				'nsLocalization': null
 		};
 		$.extend(true,option,opts);
 		
@@ -156,7 +156,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				'drawFrame':'Dessiner un cadre',
 				'drawMask':'Cacher vos informations',
 				'removeElement':'Supprimer un \u00e9l\u00e9ment',
-				'arrow':'l\u00e8che',
+				'arrow':'Fl\u00e8che',
 				'drawArrow':'Pointer un \u00e9l\u00e9ment',
 				'addNote':'Ajouter un texte',
 				'note':'Note',
@@ -173,17 +173,17 @@ function Line(startX, startY, endX, endY, raphael) {
 		/**
 		 * Function to localize. Can use another function with callback getTranslation.
 		 * @param key to the string
+		 * @returns translated string
 		 */
 		function iT(key){
-			if (typeof option.getTranslation != 'function'){
-				console.log(translation[option.language][key]);
-				return translation[option.language][key];
+			if (typeof option.getLocalization != 'function'){
+				return translation[option.localization][key];
 			}
 			else{
-				if(option.nsTranslation!=null){
-					key= nsTranslation + key;
+				if(option.nsLocalization!=null){
+					key= option.nsLocalization + key;
 				}
-				return option.getTranslation.call(this,key);
+				return option.getLocalization.call(this,key);
 			}
 		}
 		
