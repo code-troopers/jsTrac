@@ -1,7 +1,7 @@
 # Introduction
 jsTrac is library providing a Javascript interface to Trac, through its XML-RPC plugin.As such, it can be integrated to any website and allow developers and/or users to directly submit ticket to it.
 
-Moreoever, jsAnnotate is provided with jsTrac. jsAnnotate is based on [jsfeedback](http://hertzen.com/experiments/jsfeedback/) allows the user to draw frame, mask, arrows and note on the webpage, then take a screenshot with the help of [html2canvas](http://html2canvas.hertzen.com).
+Moreoever, jsAnnotate is provided with jsTrac. jsAnnotate is based on [jsfeedback](http://hertzen.com/experiments/jsfeedback/) and allows the user to draw frame, mask, arrows and note on the webpage, then take a screenshot with the help of [html2canvas](http://html2canvas.hertzen.com).
 
 Both script are designed to be independant of each other so that you may switch one of them if needed or use only one of them.
 
