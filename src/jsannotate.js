@@ -119,9 +119,74 @@ function Line(startX, startY, endX, endY, raphael) {
 				'onRendered':null,
 				'onOut':null,
 				'loadingDivId':null,
-				'kbShortcut':null
+				'kbShortcut':null,
+				'language':'en',
+				'getTranslation':null,
+				'nsTranslation': null
 		};
 		$.extend(true,option,opts);
+		
+		var translation={
+			'en':{
+				'red':'Red',
+				'green':'Green',
+				'blue':'Blue',
+				'mask':'Mask',
+				'annotation':'Annotation',
+				'drawFrame':'Draw a frame',
+				'drawMask':'Hide your informations',
+				'removeElement':'Remove an element',
+				'arrow':'Arrow',
+				'drawArrow':'Point an element',
+				'addNote':'Add a text',
+				'note':'Note',
+				'crop':'Crop',
+				'move':'Move',
+				'selectCropArea':'Select the captured area',
+				'loading':'Loading...',
+				'cancel':'Cancel',
+				'continue':'Continue'
+			},
+			'fr':{
+				'red':'Rouge',
+				'green':'Vert',
+				'blue':'Bleu',
+				'mask':'Masque',
+				'annotation':'Annotation',
+				'drawFrame':'Dessiner un cadre',
+				'drawMask':'Cacher vos informations',
+				'removeElement':'Supprimer un \u00e9l\u00e9ment',
+				'arrow':'l\u00e8che',
+				'drawArrow':'Pointer un \u00e9l\u00e9ment',
+				'addNote':'Ajouter un texte',
+				'note':'Note',
+				'crop':'Recadrer',
+				'move':'D\u00e9placer',
+				'selectCropArea':'D\u00e9finir la zone de capture',
+				'loading':'Chargement en cours...',
+				'cancel':'Annuler',
+				'continue':'Continuer'
+			}
+				
+		};
+		
+		/**
+		 * Function to localize. Can use another function with callback getTranslation.
+		 * @param key to the string
+		 */
+		function iT(key){
+			if (typeof option.getTranslation != 'function'){
+				console.log(translation[option.language][key]);
+				return translation[option.language][key];
+			}
+			else{
+				if(option.nsTranslation!=null){
+					key= nsTranslation + key;
+				}
+				return option.getTranslation.call(this,key);
+			}
+		}
+		
 		$(this.selector).click(function(){
 
 			var self = this;
@@ -203,19 +268,19 @@ function Line(startX, startY, endX, endY, raphael) {
 			// Button of the interface
 			var color = '#faa';
 			var feedbackClass= "feedbackRed";
-			var red = $('<button>').text('Red').addClass('btn  btn-small').button('toggle')
+			var red = $('<button>').text(iT('red')).addClass('btn  btn-small').button('toggle')
 			.click(function() {
 				changeButton();
 				color = '#faa';
 				feedbackClass = "feedbackRed";
 			});
-			var green = $('<button>').text('Green').addClass('btn btn-small')
+			var green = $('<button>').text(iT('green')).addClass('btn btn-small')
 			.click(function() {
 				changeButton();
 				color = '#afa';
 				feedbackClass = "feedbackGreen";
 			});
-			var blue = $('<button>').text('Blue').addClass('btn btn-small')
+			var blue = $('<button>').text(iT('blue')).addClass('btn btn-small')
 			.click(function() {
 				changeButton();
 				color = '#aaf';
@@ -223,7 +288,7 @@ function Line(startX, startY, endX, endY, raphael) {
 			});
 
 			//Black mask, doesn't use hex value but a special case
-			var black = $('<button>').text('Mask').addClass('btn btn-small')
+			var black = $('<button>').text(iT('mask')).addClass('btn btn-small')
 			.click(function() {
 				changeButton();
 				color = 'black';
@@ -246,7 +311,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	        });
 
 			//This is provided for compatiblity mode. The svg layer need to be in front in order for the arrows to be removable.
-	        var removeArrow=$('<button>').text('Arrow').addClass('btn btn-small').css('margin-left','10px')
+	        var removeArrow=$('<button>').text(iT('arrow')).addClass('btn btn-small').css('margin-left','10px')
 	        .click(function() {
 	            changeButton();
 	            deleteMode=true;
@@ -255,7 +320,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	            arrowForward();
 	        });
 
-	        var crop = $('<button>').text('Crop').addClass('btn btn-small')
+	        var crop = $('<button>').text(iT('crop')).addClass('btn btn-small')
 	        .click(function() {
 	            changeButton();
 	            color = 'white';
@@ -268,12 +333,12 @@ function Line(startX, startY, endX, endY, raphael) {
 
 	        //Sticky note are based on http://stackoverflow.com/questions/10229294/javascript-sticky-notes
 	        var sticky= $('<div>').addClass('stickyNoteHeader').css('z-index',option.zIndex+8);
-	        $('<p>').text('Move').appendTo(sticky);
+	        $('<p>').text(iT('move')).appendTo(sticky);
 	        $('<button>').attr('type','button').addClass('close closeNote').text('x').css('margin-right','5px').appendTo(sticky);
 	        $('<div>').addClass('stickyNoteBody').append('<textarea>').appendTo(sticky);
 
 
-	        var note = $('<button>').text('Note').addClass('btn btn-small')
+	        var note = $('<button>').text(iT('note')).addClass('btn btn-small')
 	        .click(function() {
 	            changeButton();
 	            color='none';
@@ -292,7 +357,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	            });
 
 
-	        var arrow=$('<button>').text('Arrow').addClass('btn btn-small')
+	        var arrow=$('<button>').text(iT('arrow')).addClass('btn btn-small')
 	            .click(function() {
 	                changeButton();
 	                svgLayer.css('pointer-events','all');
@@ -336,7 +401,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 			//Creation of each line of the interface.
 			var menuColor=$('<div>').addClass('feedbackMenuBar')
-	        .append("<label>Draw a frame</label>")
+	        .append($('<label>').text(iT('drawFrame')))
 	        .addClass('btn-group')
 	        .attr('data-toggle','buttons-radio')
 	        .append(red)
@@ -346,15 +411,15 @@ function Line(startX, startY, endX, endY, raphael) {
 
 
 	        var menuArrow=$('<div>').addClass('feedbackMenuBar')
-	        .append("<label>Point an element</label>")
+	        .append($('<label>').text(iT('drawArrow')))
 	        .append(arrow);
 
 			var menuMask=$('<div>').addClass('feedbackMenuBar')
-			.append("<label>Hide your informations</label>")
+			.append($('<label>').text(iT('drawMask')))
 			.append(black);
 
 			var menuRemove=$('<div>').addClass('feedbackMenuBar')
-			.append("<label>Remove an element</label>")
+			.append($('<label>').text(iT('removeElement')))
 			.append(remove);
 
 			if (compatilibityMode){
@@ -362,17 +427,17 @@ function Line(startX, startY, endX, endY, raphael) {
 			}
 
 			var menuCrop=$('<div>').addClass('feedbackMenuBar')
-	        .append("<label>Select the visible area</label>")
+	        .append($('<label>').text(iT('selectCropArea')))
 	        .append(crop);
 
 
 	        var menuNote=$('<div>').addClass('feedbackMenuBar')
-	        .append("<label>Add text</label>")
+	        .append($('<label>').text(iT('addNote')))
 	        .append(note);
 
 			var cancel=$('<button>')
 			.addClass('btn btn-small')
-			.text('Annuler')
+			.text(iT('cancel'))
 			.click(function(){
 				feedbackDiv.remove();
 				overlay.remove();
@@ -389,7 +454,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 
 			//THE big button doing all the work
-			var preview = $('<button>').text('Continue').addClass('btn btn-primary').attr('id','feedbackPreview').click(function() {
+			var preview = $('<button>').text(iT('continue')).addClass('btn btn-primary').attr('id','feedbackPreview').click(function() {
 			//Preprocessing before screenshot
 				feedbackDiv.remove();
 				arrowForward();

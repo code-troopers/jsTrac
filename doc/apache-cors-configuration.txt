@@ -10,7 +10,7 @@ Header add Access-Control-Allow-Headers "Content-Type"
 Header add Access-Control-Allow-Credentials "true"
 
 
-First line: Specify which domain can access your resource. If you use authentication to the server, then replace the wildcard by the actual distant domain.
+First line: Specify which domain can access your resource. You will need replace the wildcard by the actual distant domain for authentification.
 
 Second line: Allowed method. Mimic use POST.
 

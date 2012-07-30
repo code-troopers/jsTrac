@@ -48,7 +48,7 @@ These 2 scripts have several dependencies. Some of them could certainly be remov
  * Mousetrap
  * Raphaël 2.1
 * jsTrac lib
- * Mimic 2.2 ( Warning! This one is modified to allow credential )
+ * Mimic 2.2 ( Warning! This one has been modified to allow credentials )
  * jQuery Validation
  
 The package provides these libraries in separate folders but do check for newer version.
