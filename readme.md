@@ -23,7 +23,7 @@ For the screenshot part ( not annotation! ), check [html2canvas](http://html2can
 
 * Internet Explorer 9
 
-In the case of Internet Explorer, you won't be able to use jsTrac if your website is on another domain due to Microsoft lack of CORS implementation for xmlHttpRequest in IE9. XDomainRequest won't work either for 2 reasons:
+In the case of Internet Explorer, you won't be able to use jsTrac if your website is on another domain than your Trac server due to Microsoft lack of CORS implementation for xmlHttpRequest in IE9. XDomainRequest won't work either for 2 reasons:
 
 * XDomainRequest doesn't allow credential meaning you won't be able to log on Trac
 * The content-type is limited to 2 values, neither are accepted by the Trac XML-RPC plugin
