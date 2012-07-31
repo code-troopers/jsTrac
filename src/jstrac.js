@@ -255,7 +255,7 @@ function rpcTracTicketInfo(id,append){
 	try{
 		var data=rpcTrac("ticket.get",id);
 		$(append).children().remove();
-		$('<h2>').text('Ticket:' + data[0] + ' - Milestone:' + data[3].milestone).appendTo(append);
+		$('<h2>').text(iT('ticketId') + data[0] + ' - '+ iT('milestone') + ' :' + data[3].milestone).appendTo(append);
 		$('<p>').text(data[3].summary).appendTo(append);
 		return data[3]._ts;
 	}
