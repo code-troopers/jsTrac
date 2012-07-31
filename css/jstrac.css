@@ -16,9 +16,7 @@ margin-top:-250px;
 	height:50px;
 }
 
-#tracTabBar{
-//	float:left;
-}
+
 
 #tracTabBar .active{
 	border-bottom:0px;
