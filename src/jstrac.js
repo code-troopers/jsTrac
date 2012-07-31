@@ -396,26 +396,23 @@ function createTracForm(){
 					console.log("Invalid query");
 				}
 				$('<div>').attr('id','updateTicketIdSelect').appendTo('#tracUpdatePane');
-				createSelect(data,"updateTicketSelect",iT('ticketList'),'#updateTicketIdSelect');
-				rpcTracTicketAction($('#updateTicketSelect').val(),'#tracTicketAction');
-				ticket=$('#updateTicketSelect').val();
-				ts=rpcTracTicketInfo($('#updateTicketSelect').val(),'#tracTicketInfo');
+				createSelect(data,"updateTicketSelect",iT('ticketList') +' ('+option.ticketQuery+')','#updateTicketIdSelect');
 			}
 			if(option.updateAnyId){
 				$('<div>').addClass('tracSelect').attr('id','updateTicketIdField').appendTo('#tracUpdatePane');
 				createInputText("updateTicketField",iT('ticketId'),'#updateTicketIdField');
 			}
 			$('<div>').attr('id','tracTicketInfo').appendTo('#tracUpdatePane');
-
+			
 
 			createTextArea("commentField",iT('comment'),9,'#tracUpdatePane');
 			$('<div>').attr('id','tracTicketAction').appendTo('#tracUpdatePane');
-
-
-
-
-
-
+			
+			if(option.ticketQuery){
+				rpcTracTicketAction($('#updateTicketSelect').val(),'#tracTicketAction');
+				ticket=$('#updateTicketSelect').val();
+				ts=rpcTracTicketInfo($('#updateTicketSelect').val(),'#tracTicketInfo');
+			}
 
 			$('#tracBarBase').clone().appendTo('#tracUpdatePane').attr('id','tracBarUpdatePane');
 
