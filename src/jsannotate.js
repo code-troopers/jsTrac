@@ -114,6 +114,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 	$.fn.annotate = function(opts) {
 		var pressedButton=this.selector;
+		var inUse=false;
 		var option={
 				'zIndex':50000,
 				'onRendered':null,
@@ -191,6 +192,7 @@ function Line(startX, startY, endX, endY, raphael) {
 
 			var self = this;
 			$(pressedButton).hide();
+			inUse=true;
 	        var deleteMode=false;
 			var reset = {
 				'margin' : 0
@@ -445,6 +447,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				$('.stickyNoteHeader').remove();
 				$('.feedbackBlack').remove();
 				$(pressedButton).show();
+				inUse=false;
 				if(typeof option.onOut== 'function')
 					option.onOut.call(this);			});
 
@@ -511,6 +514,7 @@ function Line(startX, startY, endX, endY, raphael) {
 							$('.stickyNoteHeader').remove();
 							$('body').css('cursor','auto');
 							$(pressedButton).show();
+							inUse=false;
 							if(typeof option.onRendered== 'function')
 								option.onRendered.call(this,base64);
 							if(typeof option.onOut== 'function')
@@ -638,6 +642,7 @@ function Line(startX, startY, endX, endY, raphael) {
 		});
 		if(option.kbShortcut!=null){
 			Mousetrap.bind(option.kbShortcut,function(e){
+				if(inUse==false && $(pressedButton+':hidden').length == 0 ) 
 				$(pressedButton).trigger('click')}
 			);
 		}
