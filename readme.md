@@ -102,7 +102,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>loadingDivId</td>
 		<td>string</td>
 		<td>null</td>
-		<td>A div where we a put a little loading message. Chance are it will appear on the screenshot.</td>
+		<td>A div where we can put a little loading message. Chance are it will appear on the screenshot.</td>
 	</tr>
 	<tr>
 		<td>kbShortcut</td>
@@ -162,7 +162,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>onOut</td>
 		<td>function</td>
 		<td>null</td>
-		<td>Callback function called when you get out of jsTrac</td>
+		<td>Callback function called when you get out of jsTrac( onCancel in v1.0 )</td>
 	</tr>
 	<tr>
 		<td>defaultComponent</td>
