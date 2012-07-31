@@ -131,11 +131,6 @@ max-width:260px;
 	width:80px;
 }
 
-
-#reportTracBug{
-	cursor:pointer;
-}
-
 #prefillTrac{
 	width:250px;
 	word-wrap: break-word;

@@ -42,7 +42,7 @@ These 2 scripts have several dependencies. Some of them could certainly be remov
  * Bootstrap 2.0.4 ( Alert, Modal, Button, Tab )
 * jsAnnotate lib
  * html2canvas 0.34
- * jQuery UI 1.8.22 ( Draggable )
+ * jQuery UI 1.8.21 ( Draggable )
  * canvg 1.2
   * rgbcolor
  * Mousetrap
