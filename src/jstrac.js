@@ -16,7 +16,7 @@ var jsTrac=(function(){
 		'prefill':null,
 		'onSubmitted':null,
 		'onUpdated':null,
-		'onCancel':null,
+		'onOut':null,
 		'defaultComponent':null,
 		'defaultMilestone':null,
 		'defaultPriority':null,
@@ -43,7 +43,7 @@ var jsTrac=(function(){
 				'cancel':'Annuler',
 				'errorXhr':'XHR error, check that you are connected, authentified to the Trac server and that CORS is properly setup',
 				'error403':'403 error, check that you are connected and authentified to the Trac server',
-				'errorUnknow':'Unidentified error, check that you are connected and authentified to the Trac server',
+				'errorUnknown':'Unidentified error, check that you are connected and authentified to the Trac server',
 				'retry':'Retry',
 				'updateTicket':'Update ticket',
 				'ticketList':'Ticket list',
@@ -63,7 +63,7 @@ var jsTrac=(function(){
 				'cancel':'Annuler',
 				'errorXhr':'Erreur XHR, v\u00e9rifiez que vous \u00eates bien connect\u00e9, authentifi\u00e9 au serveur Trac et que le CORS est bien param\u00e9tr\u00e9',
 				'error403':'403 error, v\u00e9rifiez que vous \u00eates bien connect\u00e9 et authentifi\u00e9 au serveur Trac',
-				'errorUnknow':'Erreur non identifiable, v\u00e9rifiez que vous \u00eates bien connect\u00e9 et authentifi\u00e9 au serveur Trac',
+				'errorUnknown':'Erreur non identifiable, v\u00e9rifiez que vous \u00eates bien connect\u00e9 et authentifi\u00e9 au serveur Trac',
 				'retry':'R\u00e9essayer',
 				'updateTicket':'Mettre \u00e0 jour',
 				'ticketList':'Liste de ticket',
@@ -312,7 +312,7 @@ function testTracConnection(){
 			$('<p>').text(iT('error403')).appendTo('#tracAlert');
 		}
 		else{
-			$('<p>').text(error('errorUnknown')).appendTo('#tracAlert');
+			$('<p>').text(iT('errorUnknown')).appendTo('#tracAlert');
 		}
 		var retry=$('<button>').attr('data-dismiss','alert').attr('type','button').addClass('btn').text('Retry').appendTo('#tracAlert');
 		retry.click(function(){
@@ -550,8 +550,8 @@ return{
 		var modal=$('<div>').attr('id','tracModalPopup').css('z-index',option.zIndex+1).appendTo('body');
 		modal.addClass('modal hide').on('hidden',function(){
 			modal.remove();
-			if(typeof option.onCancel == 'function')
-			option.onCancel.call(this);
+			if(typeof option.onOut == 'function')
+			option.onOut.call(this);
 		});
 		var leftPane = $('<div>').attr('id','tracLeftPane').appendTo(modal);
 		if(option.img!=null){

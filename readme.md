@@ -159,10 +159,10 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>Callback function called when a ticket is updated. The id of the ticket is passed as a parameter, plus a link to the ticket.</td>
 	</tr>
 	<tr>
-		<td>onCancel</td>
+		<td>onOut</td>
 		<td>function</td>
 		<td>null</td>
-		<td>Callback function called when you cancel.</td>
+		<td>Callback function called when you get out of jsTrac</td>
 	</tr>
 	<tr>
 		<td>defaultComponent</td>
