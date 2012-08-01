@@ -119,7 +119,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				'zIndex':50000,
 				'onRendered':null,
 				'onOut':null,
-				'loading':null,
+				'loadingContent':null,
 				'kbShortcut':null,
 				'localization':'en',
 				'getLocalization':null,
@@ -463,12 +463,12 @@ function Line(startX, startY, endX, endY, raphael) {
 				feedbackDiv.remove();
 				arrowForward();
 				deleteMode=false;
-				if(option.loading!=null){
+				if(option.loadingContent!=null){
 					var loading=$('<loading>').attr('id','screenshotLoading').appendTo('body');
-					loading.append(option.loading);
+					loading.append(option.loadingContent);
 					loading.css({
-						'margin-left': Math.round(loading.width()/-2),
-						'margin-top': Math.round(loading.width()/-2),
+						'margin-left': Math.round($('#screenshotLoading').width()/-2),
+						'margin-top': Math.round($('#screenshotLoading').height()/-2),
 						'z-index':option.zIndex+20
 					});
 				}
@@ -522,7 +522,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	                        $('#feedbackOverlay').remove();
 	                        arrowOverlay.remove();
 	                        $('.feedbackBlack').remove();
-	                        if(option.loading!=null)
+	                        if(option.loadingContent!=null)
 	                        	loading.remove();
 							$('.stickyNoteHeader').remove();
 							$('body').css('cursor','auto');
