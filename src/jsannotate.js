@@ -119,7 +119,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				'zIndex':50000,
 				'onRendered':null,
 				'onOut':null,
-				'enableLoading':false,
+				'loading':null,
 				'kbShortcut':null,
 				'localization':'en',
 				'getLocalization':null,
@@ -463,8 +463,16 @@ function Line(startX, startY, endX, endY, raphael) {
 				feedbackDiv.remove();
 				arrowForward();
 				deleteMode=false;
-				if(option.enableLoading)
-					var loading=$('<loading>').attr('id','screenshotLoading').append("<img src='image/ajax-loader.gif'/>").appendTo('body');
+				if(option.loading!=null){
+					console.log("pouet");
+					var loading=$('<loading>').attr('id','screenshotLoading').appendTo('body');
+					loading.append(option.loading);
+					loading.css({
+						'margin-left': Math.round(loading.width()/-2),
+						'margin-top': Math.round(loading.width()/-2),
+						'z-index':option.zIndex+20
+					});
+				}
 				
 				$('.feedbackRed').css({
 					'background' : 'none',
@@ -515,7 +523,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	                        $('#feedbackOverlay').remove();
 	                        arrowOverlay.remove();
 	                        $('.feedbackBlack').remove();
-	                        if(option.enableLoading)
+	                        if(option.loading!=null)
 	                        	loading.remove();
 							$('.stickyNoteHeader').remove();
 							$('body').css('cursor','auto');

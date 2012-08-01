@@ -86,13 +86,10 @@ margin-bottom:5px;
 }
 
 #screenshotLoading{
+	display:block;
 	position:absolute;
 	top:50%;
 	left:50%;
-	font-weight:bold;
-	margin-top:-50px;
-	margin-left:-50px;
-	z-index:60000;
 }
 
 
