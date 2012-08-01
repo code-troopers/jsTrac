@@ -464,7 +464,6 @@ function Line(startX, startY, endX, endY, raphael) {
 				arrowForward();
 				deleteMode=false;
 				if(option.loading!=null){
-					console.log("pouet");
 					var loading=$('<loading>').attr('id','screenshotLoading').appendTo('body');
 					loading.append(option.loading);
 					loading.css({
