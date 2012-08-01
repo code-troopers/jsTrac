@@ -467,8 +467,8 @@ function Line(startX, startY, endX, endY, raphael) {
 					var loading=$('<loading>').attr('id','screenshotLoading').appendTo('body');
 					loading.append(option.loadingContent);
 					loading.css({
-						'margin-left': Math.round($('#screenshotLoading').width()/-2),
-						'margin-top': Math.round($('#screenshotLoading').height()/-2),
+						'margin-left': Math.round(loading.width()/-2),
+						'margin-top': Math.round(loading.height()/-2),
 						'z-index':option.zIndex+20
 					});
 				}
