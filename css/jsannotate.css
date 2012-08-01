@@ -85,8 +85,14 @@ margin-bottom:5px;
 	pointer-events:visible;
 }
 
-#tracLoading{
-font-size:30px;
+#screenshotLoading{
+	position:absolute;
+	top:50%;
+	left:50%;
+	font-weight:bold;
+	margin-top:-50px;
+	margin-left:-50px;
+	z-index:60000;
 }
 
 

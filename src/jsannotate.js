@@ -119,7 +119,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				'zIndex':50000,
 				'onRendered':null,
 				'onOut':null,
-				'loadingDivId':null,
+				'enableLoading':false,
 				'kbShortcut':null,
 				'localization':'en',
 				'getLocalization':null,
@@ -459,12 +459,13 @@ function Line(startX, startY, endX, endY, raphael) {
 
 			//THE big button doing all the work
 			var preview = $('<button>').text(iT('continue')).addClass('btn btn-primary').attr('id','feedbackPreview').click(function() {
-			//Preprocessing before screenshot
+			//Preprocessing before screenshot:remove stuff and reorder for screen
 				feedbackDiv.remove();
 				arrowForward();
 				deleteMode=false;
-				var loading=$('<span>').attr('id','tracLoading').text('Loading');
-				$('#'+option.loadingDivId).prepend(loading);
+				if(option.enableLoading)
+					var loading=$('<loading>').attr('id','screenshotLoading').append("<img src='image/ajax-loader.gif'/>").appendTo('body');
+				
 				$('.feedbackRed').css({
 					'background' : 'none',
 					'border' : 'solid 4px red'
@@ -483,7 +484,7 @@ function Line(startX, startY, endX, endY, raphael) {
 		            var width = $('.feedbackCrop').width();
 		            var height = $('.feedbackCrop').height();
 				}
-
+				//convert arrows svg to png
 				var svgString = $('<div></div>').append(svgLayer.clone()).html();
 				svgLayer.remove();
 				var arrowImg = svg2png(svgString);
@@ -495,8 +496,11 @@ function Line(startX, startY, endX, endY, raphael) {
 
 				$('body').css('cursor','wait');
 				window.setTimeout(function() {
-					html2canvas( [ document.body ], {
+					html2canvas( [document.body] , {
 						//parameter of html2canvas...
+						
+				        ignoreElements: "IFRAME|OBJECT|PARAM|LOADING",
+				        iframeDefault:"transparent",
 						onrendered:function(canvas) {
 						var ctx = canvas.getContext('2d');
 	                        if (typeof left!='undefined'){
@@ -511,7 +515,8 @@ function Line(startX, startY, endX, endY, raphael) {
 	                        $('#feedbackOverlay').remove();
 	                        arrowOverlay.remove();
 	                        $('.feedbackBlack').remove();
-							loading.remove();
+	                        if(option.enableLoading)
+	                        	loading.remove();
 							$('.stickyNoteHeader').remove();
 							$('body').css('cursor','auto');
 							$(pressedButton).show();

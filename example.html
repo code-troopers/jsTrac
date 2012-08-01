@@ -42,6 +42,7 @@
 			var optsAnnotate={
 		    		'onOut':function(){console.log("We got out of the annotation!")},
 		    		'kbShortcut':'alt+s',
+		    		'enableLoading':true,
 					'onRendered': function(img){
 						optsTrac.img=img;
 						jsTrac.initTracForm($('#url_to_trac').val(),optsTrac);
@@ -56,6 +57,7 @@
 		
 <h1>Important: How to use this example</h1>
 <div id="loading"></div>
+
 	
 <p>In order to test jsTrac, you will need to provide the URL to a Trac server which has a recent version of the XML-RPC plugin.<br/><br/>
 	
