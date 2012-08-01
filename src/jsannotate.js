@@ -647,7 +647,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				$(pressedButton).trigger('click')}
 			);
 		}
-		if(option.selfCLick){
+		if(option.selfClick){
 			$(pressedButton).trigger('click');
 		}
 		return this;
