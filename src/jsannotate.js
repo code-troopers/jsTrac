@@ -123,7 +123,8 @@ function Line(startX, startY, endX, endY, raphael) {
 				'kbShortcut':null,
 				'localization':'en',
 				'getLocalization':null,
-				'nsLocalization': null
+				'nsLocalization': null,
+				selfClick:false
 		};
 		$.extend(true,option,opts);
 		
@@ -645,6 +646,9 @@ function Line(startX, startY, endX, endY, raphael) {
 				if(inUse==false && $(pressedButton+':hidden').length == 0 ) 
 				$(pressedButton).trigger('click')}
 			);
+		}
+		if(option.selfCLick){
+			$(pressedButton).trigger('click');
 		}
 		return this;
 	};
