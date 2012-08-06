@@ -4,7 +4,7 @@
 * Copyright © 2012 SRMVision https://www.srmvision.com/
 * Licensed MIT, see license.txt
 * @author Romain Laï-King
-* @version 1.0
+* @version 1.1
 */
 /**
 * @class jsTrac

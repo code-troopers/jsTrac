@@ -1,5 +1,5 @@
 /**
- * jsAnnotate 1.0
+ * jsAnnotate
  * A Javascript interface to annotate your webpages
  * Copyright © 2012 SRMVision https://www.srmvision.com/
  * Licensed MIT, see license.txt
@@ -7,7 +7,7 @@
  * Partly based on jsfeedback by Niklas von Hertzen.
  * http://hertzen.com/experiments/jsfeedback/
  * Modified by Romain Laï-King
- * @version 1.0
+ * @version 1.1
  */
 
  /**
