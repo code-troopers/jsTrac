@@ -124,7 +124,7 @@ function Line(startX, startY, endX, endY, raphael) {
 				'localization':'en',
 				'getLocalization':null,
 				'nsLocalization': null,
-				selfClick:false
+				'selfClick':false
 		};
 		$.extend(true,option,opts);
 		
@@ -460,6 +460,8 @@ function Line(startX, startY, endX, endY, raphael) {
 			//THE big button doing all the work
 			var preview = $('<button>').text(iT('continue')).addClass('btn btn-primary').attr('id','feedbackPreview').click(function() {
 			//Preprocessing before screenshot:remove stuff and reorder for screen
+				changeButton();
+				overlay.unbind('mousedown');
 				feedbackDiv.remove();
 				arrowForward();
 				deleteMode=false;

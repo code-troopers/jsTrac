@@ -70,7 +70,7 @@ Check the provided example. At the moment, we can't provide a server for testing
 		});
 			
 
-#Options
+#Options for v1.1
 ##.annotate(opts)
 
 <table>
@@ -99,16 +99,40 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>Callback function executed when you leave jsAnnotate, be it cancel or submit
 	</td>
 	<tr>
-		<td>loadingDivId</td>
+		<td>loadingContent</td>
 		<td>string</td>
 		<td>null</td>
-		<td>A div where we can put a little loading message. Chance are it will appear on the screenshot.</td>
+		<td>Content of a special div which won't appear on the screenshot. Be warned, this div use a custom HTML tag.</td>
+	</tr>
+	<tr>
+		<td>selfClick</td>
+		<td>boolean</td>
+		<td>false</td>
+		<td>Act like you clicked on it ( needs some improvement )</td>
 	</tr>
 	<tr>
 		<td>kbShortcut</td>
 		<td>string</td>
 		<td>null</td>
 		<td>A keyboard shortcut which act like you clicked on the actual button to annotate. See <a href="http://craig.is/killing/mice">Mousetrap</a> for format.</td>
+	</tr>
+	<tr>
+		<td>localization</td>
+		<td>string</td>
+		<td>en</td>
+		<td>Language. Only 'en' and 'fr are available by default</td>
+	</tr>
+	<tr>
+		<td>getLocalization</td>
+		<td>function</td>
+		<td>string</td>
+		<td>In case you have a centralized database for localization, you can put a callback here. For keys parameters, check the source code.</td>
+	</tr>
+	<tr>
+		<td>nsLocalization</td>
+		<td>string</td>
+		<td>null</td>
+		<td>Namespace of the key for the previous option</td>
 	</tr>
 </table>
 
@@ -212,10 +236,37 @@ Check the provided example. At the moment, we can't provide a server for testing
 		<td>null</td>
 		<td>Generate a drop down list of ticket conforming to the query. See the <a href="http://trac.edgewall.org/wiki/TicketQuery">Trac query</a> for the format of the query. ( Not eveything might be supported at the moment )</td>
 	</tr>
+	<tr>
+		<td>localization</td>
+		<td>string</td>
+		<td>en</td>
+		<td>Language. Only 'en' and 'fr are available by default</td>
+	</tr>
+	<tr>
+		<td>getLocalization</td>
+		<td>function</td>
+		<td>string</td>
+		<td>In case you have a centralized database for localization, you can put a callback here. For keys parameters, check the source code.</td>
+	</tr>
+	<tr>
+		<td>nsLocalization</td>
+		<td>string</td>
+		<td>null</td>
+		<td>Namespace of the key for the previous option</td>
+	</tr>
 </table>
 
 
 #Changelog
+
+v1.1
+ 
+* Fixed localization
+* Corrected documentation and option name
+* Blocked drawing after confirming
+* Added French localization
+* Added localization option
+* Added loading for screenshot rendering
 
 v1.0
 * Initial release

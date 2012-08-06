@@ -74,7 +74,7 @@ var jsTrac=(function(){
 	}
 	var tracUrl=null;
 /**
- * Function to localize. Can use another function with callback getTranslation.
+ * Function to localize. Can use another function with callback getLocalization
  * @param key to the string
  * @returns translated string
  */
