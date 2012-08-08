@@ -559,7 +559,6 @@ return{
 		$('<div>').attr('id','tracModalHeader').appendTo('#tracForm');
 		$('<button>').attr('type','button').addClass('close').attr('data-dismiss','modal').text('x').appendTo('#tracModalHeader');
 		$('<ul>').attr('id','tracTabBar').addClass('nav nav-tabs').appendTo('#tracModalHeader');
-		$('.modal-backdrop').css('z-index',option.zIndex);
 		$('<div>').attr('id','tracAppendZone').addClass('tab-content').appendTo('#tracForm');
 		$('<div>').attr('id','tracBarBase').addClass('tracBar').appendTo('#tracForm');
 		$('<button>').addClass('btn').text(iT('cancel')).attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');
@@ -570,7 +569,7 @@ return{
 			'margin-left': Math.round(modal.width()/-2),
 		});
 		modal.modal('show');
-		
+		$('.modal-backdrop').css('z-index',option.zIndex);
 		createTracForm();
 	}
 };
