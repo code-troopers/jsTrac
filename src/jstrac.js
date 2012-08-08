@@ -545,7 +545,7 @@ return{
 		tracUrl=url;
 		option=$.extend(true,option,opts);
 		var modal=$('<div>').attr('id','tracModalPopup').css('z-index',option.zIndex+1).appendTo('body');
-		modal.addClass('modal hide').on('hidden',function(){
+		modal.addClass('modal hide').modal({backdrop:'static'}).on('hidden',function(){
 			modal.remove();
 			if(typeof option.onOut == 'function')
 			option.onOut.call(this);
