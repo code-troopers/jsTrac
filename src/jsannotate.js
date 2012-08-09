@@ -249,7 +249,7 @@ function Line(startX, startY, endX, endY, raphael) {
 					compatilibityMode=true;
 				}
 			}
-			if (ua.opera){
+			if (ua.opera||ua.msie){
 				compatilibityMode=true;
 			}
 
@@ -494,6 +494,8 @@ function Line(startX, startY, endX, endY, raphael) {
 		            var height = $('.feedbackCrop').height();
 				}
 				//convert arrows svg to png
+				//Fix for IE9
+				svgLayer.removeAttr('xmlns');
 				var svgString = $('<div></div>').append(svgLayer.clone()).html();
 				svgLayer.remove();
 				var arrowImg = svg2png(svgString);
