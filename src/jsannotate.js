@@ -354,6 +354,7 @@ function Line(startX, startY, endX, endY, raphael) {
 	            'margin' :'-75px 0 0 -75px'
 	            });
 	            $('body').append(clone);
+	            clone.find('textarea').val('');
 	            $('.closeNote').click(function(){
 	                    $(this).parent().remove();
 	                });
