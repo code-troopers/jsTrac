@@ -137,7 +137,9 @@ function createSelect(data, name, title, append, defaultValue) {
 			defaultFound=true;
 			selectTag.append("<option selected='selected' value='" + value + "'>" + value + "</option>");
 		}
-		selectTag.append("<option value='" + value + "'>" + value + "</option>");
+		else{
+			selectTag.append("<option value='" + value + "'>" + value + "</option>");
+		}
 	});
 	if (defaultFound){
 		switch(option.lockDefault){

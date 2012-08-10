@@ -198,8 +198,8 @@ function Line(startX, startY, endX, endY, raphael) {
 			var reset = {
 				'margin' : 0
 			}, createDiv, createDivLeft, createDivTop, overlay, feedbackDiv, line;
-			
-
+			//disable all selection
+		    $('body').addClass('disableSelect');
 
 			arrowOverlay = $('<span/>')
 			.css(reset)
@@ -446,9 +446,11 @@ function Line(startX, startY, endX, endY, raphael) {
 				feedbackDiv.remove();
 				overlay.remove();
 				arrowOverlay.remove();
+				svgLayer.remove();
 				$('.stickyNoteHeader').remove();
 				$('.feedbackBlack').remove();
 				$(pressedButton).show();
+				$('body').removeClass('disableSelect');
 				inUse=false;
 				if(typeof option.onOut== 'function')
 					option.onOut.call(this);			});
@@ -532,6 +534,7 @@ function Line(startX, startY, endX, endY, raphael) {
 							$('.stickyNoteHeader').remove();
 							$('body').css('cursor','auto');
 							$(pressedButton).show();
+							$('body').removeClass('disableSelect');
 							inUse=false;
 							if(typeof option.onRendered== 'function')
 								option.onRendered.call(this,base64);
