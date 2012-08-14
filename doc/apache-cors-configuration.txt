@@ -17,3 +17,5 @@ Second line: Allowed method. Mimic use POST.
 Third line: Allowed header in preflight. Mimic will put "Content-type"
 
 Fourth line: Allow credentials. Might not be needed if you allow anonymous submitting. 
+
+For dynamic header configuration, see : http://www.cameronstokes.com/2010/12/26/cross-origin-resource-sharing-and-apache-httpd/
