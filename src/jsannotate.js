@@ -30,83 +30,86 @@
     return base64;
  }
 
-/**
- * Based on http://stackoverflow.com/questions/3582344/draw-a-connection-line-in-raphaeljs 
- * and  http://taitems.tumblr.com/post/549973287/drawing-arrows-in-raphaeljs
- * Mixed the 2 to create an arrow
- * This function draw arrows by dragging
- * @class Line
- * @param startX X coordinate of starting point
- * @param startY Y coordinate of starting point
- * @param endX X coordinate of the arrow end
- * @param endY Y coordinate of the arrow end
- * @param raphael the raphael canvas
- */
-
-
-
-function Line(startX, startY, endX, endY, raphael) {
-    var start = {
-        x: startX,
-        y: startY
-    };
-    var end = {
-        x: endX,
-        y: endY
-    };
-    var getPath = function() {
-
-        return "M" + start.x + " " + start.y + " L" + end.x + " " + end.y  ;
-    };
-	//Using the provided arrow end of raphaeljs doesn't work with svg2png, so we draw a path for the arrow
-    var getArrowPath = function() {
-            size=10;
-            return "M "+ end.x + " " + end.y + " L " + (end.x - size) + " " + (end.y - size) +  " L " + (end.x - size) + " " + (end.y + size) + " L " +     end.x + " " + end.y ;
-        };
-    var redraw = function() {
-        var angle = Math.atan2(start.x-end.x,end.y-start.y);
-        angle = (angle / (2 * Math.PI)) * 360;
-
-        var angle = Raphael.angle(start.x,start.y,end.x,end.y);
-        arrow.attr("path",getArrowPath());
-        arrow.transform("r"+(angle+180)+","+end.x+","+end.y);
-        node.attr("path", getPath());
-    }
-
-
-    var node = raphael.path(getPath());
-    var arrow = raphael.path(getArrowPath());
-
-
-    arrow.attr("stroke","#ff0000");
-    arrow.attr("fill","#ff0000");
-    //We use jQuery's attr method for stroke-width, Raphael's attr generates errors in the console log.
-    $('#arrowOverlay').find('path').attr("stroke-width","7");
-    node.attr("stroke","#ff0000");
-    return {
-        updateStart: function(x, y) {
-            start.x = x;
-            start.y = y;
-            redraw();
-            return this;
-        },
-        updateEnd: function(x, y) {
-            end.x = x;
-            end.y = y;
-            redraw();
-            return this;
-        },
-        getNode: function(){
-            return node;
-        },
-        getArrow: function(){
-            return arrow;
-         }
-    };
-}
-
 
 (function($) {
+	
+	
+
+	/**
+	 * Based on http://stackoverflow.com/questions/3582344/draw-a-connection-line-in-raphaeljs 
+	 * and  http://taitems.tumblr.com/post/549973287/drawing-arrows-in-raphaeljs
+	 * Mixed the 2 to create an arrow
+	 * This function draw arrows by dragging
+	 * @class Line
+	 * @param startX X coordinate of starting point
+	 * @param startY Y coordinate of starting point
+	 * @param endX X coordinate of the arrow end
+	 * @param endY Y coordinate of the arrow end
+	 * @param raphael the raphael canvas
+	 */
+
+
+
+	function Line(startX, startY, endX, endY, raphael) {
+	    var start = {
+	        x: startX,
+	        y: startY
+	    };
+	    var end = {
+	        x: endX,
+	        y: endY
+	    };
+	    var getPath = function() {
+
+	        return "M" + start.x + " " + start.y + " L" + end.x + " " + end.y  ;
+	    };
+		//Using the provided arrow end of raphaeljs doesn't work with svg2png, so we draw a path for the arrow
+	    var getArrowPath = function() {
+	            size=10;
+	            return "M "+ end.x + " " + end.y + " L " + (end.x - size) + " " + (end.y - size) +  " L " + (end.x - size) + " " + (end.y + size) + " L " +     end.x + " " + end.y ;
+	        };
+	    var redraw = function() {
+	        var angle = Math.atan2(start.x-end.x,end.y-start.y);
+	        angle = (angle / (2 * Math.PI)) * 360;
+
+	        var angle = Raphael.angle(start.x,start.y,end.x,end.y);
+	        arrow.attr("path",getArrowPath());
+	        arrow.transform("r"+(angle+180)+","+end.x+","+end.y);
+	        node.attr("path", getPath());
+	    }
+
+
+	    var node = raphael.path(getPath());
+	    var arrow = raphael.path(getArrowPath());
+
+
+	    arrow.attr("stroke","#ff0000");
+	    arrow.attr("fill","#ff0000");
+	    //We use jQuery's attr method for stroke-width, Raphael's attr generates errors in the console log.
+	    $('#arrowOverlay').find('path').attr("stroke-width","7");
+	    node.attr("stroke","#ff0000");
+	    return {
+	        updateStart: function(x, y) {
+	            start.x = x;
+	            start.y = y;
+	            redraw();
+	            return this;
+	        },
+	        updateEnd: function(x, y) {
+	            end.x = x;
+	            end.y = y;
+	            redraw();
+	            return this;
+	        },
+	        getNode: function(){
+	            return node;
+	        },
+	        getArrow: function(){
+	            return arrow;
+	         }
+	    };
+	}
+
 
 	/**
 	* Function which create the whole annotation form
