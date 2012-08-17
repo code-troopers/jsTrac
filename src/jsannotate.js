@@ -66,7 +66,7 @@
 		//Using the provided arrow end of raphaeljs doesn't work with svg2png, so we draw a path for the arrow
 	    var getArrowPath = function() {
 	            size=10;
-	            return "M "+ end.x + " " + end.y + " L " + (end.x - size) + " " + (end.y - size) +  " L " + (end.x - size) + " " + (end.y + size) + " L " +     end.x + " " + end.y ;
+	            return "M "+ end.x + " " + end.y + " L " + (end.x - size) + " " + (end.y - size) +  " L " + (end.x - size) + " " + (end.y + size) + " L " +     end.x + " " + end.y + " Z" ;
 	        };
 	    var redraw = function() {
 	        var angle = Math.atan2(start.x-end.x,end.y-start.y);

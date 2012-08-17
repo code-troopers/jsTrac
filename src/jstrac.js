@@ -373,7 +373,7 @@ function createTracForm(){
 			},
 			submitHandler : function(form) {
 				var result = submitTracTicket();
-				var name=addAttachment(result,option.img);
+				var name=addImage(result,option.img);
 				$('#tracModalPopup').modal('hide');
 				$('#tracModalPopup').remove();
 				if (typeof option.onSubmitted=='function')
@@ -439,7 +439,7 @@ function createTracForm(){
 					commentField : "required",
 				},
 				submitHandler : function(form) {
-					var name=addAttachment(ticket,option.img);
+					var name=addImage(ticket,option.img);
 					var result = updateTracTicket(ticket,ts);
 					$('#tracModalPopup').modal('hide');
 					$('#tracModalPopup').remove();
@@ -483,11 +483,12 @@ function submitTracTicket() {
 }
 
 /**
-* Add an attachment to ticket
+* Add an image to ticket
 * @param id Id of the ticket
+* @param img PNG image in base64
 */
 
-function addAttachment(id,img) {
+function addImage(id,img) {
 	if(img!=null){
 		//Create the base64 object
 		var base = new Base64();
