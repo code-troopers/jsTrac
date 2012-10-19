@@ -179,6 +179,18 @@ function createInputText(name, title,append) {
 	.append("<input type='text' id='" + name + "'name='" + name + "'>");
 }
 
+
+/**
+* Create a radio (e.g to launch actions)
+* @param Name/id of the input text
+* @param Title Title to display above in label
+* @parem Append Where it will be appended
+*/
+function createRadio(id, name, title, value, append) {
+       $(append).append("<label for='" + id + "'>" + title + "</label>")
+       .append("<input type='radio' id='" + id + "'name='" + name + "' value='" + value + "'>");
+}
+
 /**
 * Method combining both the RPC method and the createSelect
 * @param RPC RPC method to call
