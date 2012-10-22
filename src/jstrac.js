@@ -29,6 +29,8 @@ var jsTrac=(function(){
 		'localization':'en',
 		'getLocalization':null,
 		'nsLocalization':null
+                'postCreationFunction':null,
+ 		'createOwnComponent': null
 	};
 	var translation={
 			'en':{
@@ -374,6 +376,9 @@ function createTracForm(){
 		rpcAndCreateSelect("ticket.priority.getAll", "prioritySelect", iT('priority'),'#tracNewPane',option.defaultPriority);
 		rpcMilestone("milestoneSelect",iT('milestone'),'#tracNewPane');
 		rpcAndCreateSelect("ticket.component.getAll", "componentSelect", iT('component'),'#tracNewPane',option.defaultComponent);
+                if (typeof option.createOwnComponent == 'function'){
+                    option.createOwnComponent.call(this);
+                }
 		$('<button>').attr('type', 'submit').addClass('btn btn-primary').text(iT('submit')).appendTo('#tracBarBase');
 		$('#tracBarBase').clone().appendTo('#tracNewPane').attr('id','tracBarNewPane');
 
@@ -385,6 +390,11 @@ function createTracForm(){
 			},
 			submitHandler : function(form) {
 				var result = submitTracTicket();
+                                if (typeof option.postCreationFunction == 'function'){
+                                    ts=rpcTracTicketInfo(result,'#tracTicketInfo');
+                                    option.postCreationFunction.call(this,result, ts);
+                                }
+
 				var name=addImage(result,option.img);
 				$('#tracModalPopup').modal('hide');
 				$('#tracModalPopup').remove();
@@ -586,7 +596,20 @@ return{
 		modal.modal('show');
 		$('.modal-backdrop').css('z-index',option.zIndex);
 		createTracForm();
-	}
+	},
+
+	rpcTracTicketInfoPublic : function(ticket,anchor) {
+            rpcTracTicketInfo(ticket,anchor);
+	},
+
+	updateTracTicketPublic : function(ticket,ts) {
+	    updateTracTicket(ticket,ts);
+	},
+
+	createRadioPublic : function(id, name, title, value, append) {
+    	    createRadio(id, name, title, value, append);
+    	}
+
 };
 
 })();
