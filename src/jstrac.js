@@ -28,7 +28,7 @@ var jsTrac=(function(){
 		'zIndex':50000,
 		'localization':'en',
 		'getLocalization':null,
-		'nsLocalization':null
+		'nsLocalization':null,
                 'postCreationFunction':null,
  		'createOwnComponent': null
 	};
