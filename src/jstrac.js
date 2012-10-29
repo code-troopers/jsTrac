@@ -29,7 +29,7 @@ var jsTrac=(function(){
 		'localization':'en',
 		'getLocalization':null,
 		'nsLocalization':null,
-                'postCreationFunction':null,
+        'postCreationFunction':null,
  		'createOwnComponent': null
 	};
 	var translation={
