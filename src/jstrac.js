@@ -194,6 +194,17 @@ function createRadio(id, name, title, value, append) {
 }
 
 /**
+* Create a checkbox (e.g to launch actions)
+* @param Name/id of the input text
+* @param Title Title to display above in label
+* @parem Append Where it will be appended
+*/
+function createCheckbox(id, name, title, value, append) {
+       $(append).append("<label for='" + id + "'>" + title + "</label>")
+       .append("<input type='checkbox' id='" + id + "'name='" + name + "' value='" + value + "'>");
+}
+
+/**
 * Method combining both the RPC method and the createSelect
 * @param RPC RPC method to call
 * @param Name Name of the select tag
@@ -390,10 +401,10 @@ function createTracForm(){
 			},
 			submitHandler : function(form) {
 				var result = submitTracTicket();
-                                if (typeof option.postCreationFunction == 'function'){
-                                    ts=rpcTracTicketInfo(result,'#tracTicketInfo');
-                                    option.postCreationFunction.call(this,result, ts);
-                                }
+                if (typeof option.postCreationFunction == 'function'){
+                    ts=rpcTracTicketInfo(result,'#tracTicketInfo');
+                    option.postCreationFunction.call(this,result, ts);
+                }
 
 				var name=addImage(result,option.img);
 				$('#tracModalPopup').modal('hide');
@@ -607,8 +618,16 @@ return{
 	},
 
 	createRadioPublic : function(id, name, title, value, append) {
-    	    createRadio(id, name, title, value, append);
-    	}
+        createRadio(id, name, title, value, append);
+    },
+
+    createCheckboxPublic : function(id, name, title, value, append) {
+        createCheckbox(id, name, title, value, append);
+    },
+
+    rpcTracPublic : function(method,id,comment,attributes) {
+        rpcTrac(method, id, comment, attributes)
+    }
 
 };
 
