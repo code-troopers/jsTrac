@@ -55,6 +55,13 @@ margin-top:-250px;
 	display:inline-block;
 	margin-top:5px;
 }
+
+#tracNewPane .tracSelect input {
+    margin-top:5px;
+    float:left;
+    width:150px;
+}
+
 .tracSelect{
 float:left;
 margin-top:5px;
@@ -67,12 +74,14 @@ text-align:right;
 margin-right:5px;
 float:left;
 }
+
 .tracSelect select{
 float:left;
 width:150px;
 padding:0px;
 margin:0px;
 }
+
 .tracSelect input{
 width:100px;
 }

@@ -200,8 +200,10 @@ function createRadio(id, name, title, value, append) {
 * @parem Append Where it will be appended
 */
 function createCheckbox(id, name, title, value, append) {
-       $(append).append("<label for='" + id + "'>" + title + "</label>")
-       .append("<input type='checkbox' id='" + id + "'name='" + name + "' value='" + value + "'>");
+    createDiv=$('<div>').addClass('tracSelect')
+        .append("<label for='" + id + "'>" + title + "</label>")
+        .append("<input type='checkbox' id='" + id + "'name='" + name + "' value='" + value + "'>");
+    $(append).append(createDiv);
 }
 
 /**
