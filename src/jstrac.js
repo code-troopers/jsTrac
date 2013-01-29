@@ -303,9 +303,14 @@ function rpcTracTicketAction(id,append){
 	$(append).children().remove();
 	try{
 		var data=rpcTrac("ticket.getActions",id);
+		var containReopen = false;
 		$.each(data,function(index,value){
 			var createDiv=$('<div>').addClass('tracAction').appendTo(append);
-			$('<input>').attr('type','radio').attr('name','tracAction').attr('id',value[0]).attr('value',value[0]).appendTo(createDiv);
+            $('<input>').attr('type','radio').attr('name','tracAction').attr('id',value[0]).attr('value',value[0]).appendTo(createDiv);
+            if(value[0].toString() == "reopen"){
+                containReopen = true;
+            }
+            
 			$('<label>').attr('for',value[0]).text(value[1]).appendTo(createDiv);
 			if( value[3].length > 0 && value[3][0][2].length > 0){
 				var selectTag=$('<select>').attr('name',value[3][0][0]).attr('name',value[3][0][0]).appendTo(createDiv);
@@ -316,6 +321,11 @@ function rpcTracTicketAction(id,append){
 			$('<div>').addClass('tracHint').text(value[2]).appendTo(createDiv);
 		})
 		$('input:radio[name=tracAction]').val([data[0][0]]);
+		if(containReopen){
+    		$('input:radio[name=tracAction]:checked').removeAttr('checked');
+    		$('input:radio[value=reopen]').attr('checked','checked');
+		}
+
 	}
 	catch(err){
 		console.log("Most likely, unknow ticket. Error returned by Trac= " + err.faultString);
@@ -634,6 +644,7 @@ return{
 };
 
 })();
+
 
 
 
