@@ -495,9 +495,6 @@ function createTracForm(){
 
 		}
 		$('#tracBarBase').remove();
-		$('#tracModalPopup').css({
-			'margin-left': Math.round($('#tracModalPopup').width()/-2)
-		})
 	}
 }
 
@@ -593,33 +590,31 @@ return{
 		tracUrl=url;
 		option=$.extend(true,option,opts);
 		var modal=$('<div>').attr('id','tracModalPopup').css('z-index',option.zIndex+1).appendTo('body');
+        $("<div class='modal-dialog'><div class='modal-content'><div class='modal-body'></div><div class='modal-footer'></div></div></div>").appendTo(modal);
 		modal.addClass('modal hide').modal({backdrop:'static'}).on('hidden',function(){
 			modal.remove();
 			if(typeof option.onOut == 'function')
 			option.onOut.call(this);
 		});
-		var leftPane = $('<div>').attr('id','tracLeftPane').appendTo(modal);
+        var $modalBody = modal.find('.modal-body');
+        var $modalFooter= modal.find('.modal-footer');
+		var leftPane = $('<div>').attr('id','tracLeftPane').appendTo($modalBody);
 		if(option.img!=null){
 			leftPane.append("<img id='screenshotPreview' src='"+option.img+"' />");
 		}
 		prefillTrac('#tracLeftPane');
-		modal.append("<div  id='tracForm'>");
+		$modalBody.append("<div  id='tracForm'>");
+        $modalBody.append("<div class='clearfix'></div>");
 		$('<div>').attr('id','tracModalHeader').appendTo('#tracForm');
 		$('<button>').attr('type','button').addClass('close').attr('data-dismiss','modal').text('x').appendTo('#tracModalHeader');
 		$('<ul>').attr('id','tracTabBar').addClass('nav nav-tabs').appendTo('#tracModalHeader');
 		$('<div>').attr('id','tracAppendZone').addClass('tab-content').appendTo('#tracForm');
-		$('<div>').attr('id','tracBarBase').addClass('tracBar').appendTo('#tracForm');
-		$('<button>').addClass('btn').text(iT('cancel')).attr('type','button').attr('data-dismiss','modal').appendTo('#tracBarBase');
-		if (option.prefill!=null || option.img!=null){
-			modal.width('800px')
-		}
-		modal.css({
-			'margin-left': Math.round(modal.width()/-2),
-		});
+		$('<div>').attr('id','tracBarBase').appendTo('#tracForm');
+		$('<button>').addClass('btn').text(iT('cancel')).attr('type','button').attr('data-dismiss','modal').appendTo($modalFooter);
 		modal.modal('show');
-		$('.modal-backdrop').css('z-index',option.zIndex);
-		createTracForm();
-	},
+        $('.modal-backdrop').css('z-index',option.zIndex);
+        createTracForm();
+    },
 
 	rpcTracTicketInfoPublic : function(ticket,anchor) {
             rpcTracTicketInfo(ticket,anchor);

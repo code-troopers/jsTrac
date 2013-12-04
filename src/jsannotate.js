@@ -518,6 +518,7 @@
 						
 				        ignoreElements: "IFRAME|OBJECT|PARAM|LOADING",
 				        iframeDefault:"transparent",
+                        proxy:false,
 						onrendered:function(canvas) {
 						var ctx = canvas.getContext('2d');
 	                        if (typeof left!='undefined'){
